@@ -21,20 +21,53 @@ html, body {
 }
 
 .page-wrap {
-    min-height: 100%;
-    /*height: 100%;*/
-    width: 100%;
-    overflow: hidden;
-    margin-top: 50px;
-    /*margin-bottom: -100px;*/
+    background-image: url("images/astronomy-atmosphere-earth-exploration-220201.jpg");
+    /*min-height: 100%;*/
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
     .page-wrap:after {
         content: "";
         display: block;
-        height: 50px;
+        height: 10px;
         /*border-bottom: 1px solid #e1e4e8;*/
     }
+
+
+.relative-band {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    padding: 3%;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    height: 350px;
+    top: 40%;
+    color: #fff;
+    border-radius: 5px;
+    /*border: 3px solid #BADA55;*/
+    border: 3px solid #ff006e;
+}
+.relative-band-absolute {
+    height: 100%;
+    position: absolute;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 25%;
+    padding: 1%;
+    text-align:center;
+}
+.realtive-text-center{
+    display:inline-block;
+    text-align:center;
+    align-content:center;
+    padding:2px;
+    font-weight:bold;
+}
 
 .check-container {
     display: block;

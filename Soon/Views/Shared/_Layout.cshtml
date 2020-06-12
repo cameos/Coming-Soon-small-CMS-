@@ -13,7 +13,7 @@
 </head>
 <body>
     <!--navigation for the site-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 
         @if (Session["adSession"] != null)
         {
@@ -23,9 +23,9 @@
         {
             @Html.ActionLink("Contact System", "home", "contact", new { @class = "navbar-brand", @style = "color:#fff;font-weight:bold;" })
         }
-        @*<a href="#" class="navbar-brand">
+        <a href="#" class="navbar-brand">
                 sample name
-            </a>*@
+            </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hel_collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,22 +41,22 @@
                 }
 
                 <li class="nav-item">
-                    @*<a class="nav-link">
+                    <a class="nav-link">
                             <img src="~/Content/Icons/013-lifeline-1.png" style="display:inline-block; border-radius:50%;" height="30" width="30" />
-                        </a>*@
+                        </a>
                 </li>
                 <li class="nav-item">
-                    @*<a class="nav-link">
+                    <a class="nav-link">
                             <img src="~/Content/Icons/064-medical-2.png" style="display:inline-block; border-radius:50%;" height="30" width="30" />
-                        </a>*@
+                        </a>
                 </li>
             </ul>
         </div>
 
-    </nav>
+    </nav>*@
 
     <!--layout for all pages-->
-    <div class="page-wrap container">
+    <div class="page-wrap">
         <div class="row">
             <div class="col-12">
                 @RenderBody()
@@ -67,7 +67,7 @@
 
     <!--layout footer for the site-->
     <div class="site-footer">
-        <div class="row">
+        @*<div class="row">
             <div class="col-sm-4">
                 <div class="text-justify" style="padding:5%;">
                     <span style="font-weight:bold;">ABOUT US</span><br />
@@ -80,7 +80,7 @@
                     Open Hour:09:00 - 18:00
                 </div>
             </div>
-        </div>
+        </div>*@
         <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
     </div>
 
