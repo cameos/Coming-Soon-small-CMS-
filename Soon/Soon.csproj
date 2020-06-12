@@ -1795,7 +1795,18 @@
     <Content Include="Content\icons\102-growth.png" />
     <Content Include="Content\icons\103-arrow.png" />
     <Content Include="Content\icons\104-loupe.png" />
+    <Content Include="Content\images\anonymous-black-person-with-large-plaid-bag-standing-by-blue-4177747.jpg" />
+    <Content Include="Content\images\astronomy-atmosphere-earth-exploration-220201.jpg" />
+    <Content Include="Content\images\close-up-of-shoes-and-bag-336372.jpg" />
     <Content Include="Content\images\emptyquarter.png" />
+    <Content Include="Content\images\gray-laptop-computer-showing-html-codes-in-shallow-focus-160107.jpg" />
+    <Content Include="Content\images\handwave.gif" />
+    <Content Include="Content\images\image %281%29.png" />
+    <Content Include="Content\images\image.png" />
+    <Content Include="Content\images\pexels-4599047.jpg" />
+    <Content Include="Content\images\photo-of-skyscrapers-surrounded-with-clouds-1437493.jpg" />
+    <Content Include="Content\images\watering-process-of-thin-green-sprout-4207907.jpg" />
+    <Content Include="Content\images\woman-sitting-on-sofa-bed-wearing-sunglasses-965324.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -1885,6 +1896,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\main\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
