@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - Cooming Soon</title>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+
+</head>
+<body>
+    <!--navigation for the site-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+
+        @if (Session["adSession"] != null)
+        {
+            @Html.ActionLink("Contact System", "home", "admin", new { @class = "navbar-brand", @style = "color:#fff;font-weight:bold;" })
+        }
+        else
+        {
+            @Html.ActionLink("Contact System", "home", "contact", new { @class = "navbar-brand", @style = "color:#fff;font-weight:bold;" })
+        }
+        @*<a href="#" class="navbar-brand">
+                sample name
+            </a>*@
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hel_collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse float-right" id="hel_collapse">
+            <ul class="navbar-nav ml-auto">
+                @if (Session["adSession"] != null)
+                {
+                    <li class="nav-item" style="display:inline-block;">
+                        @Html.ActionLink("sign out", "signout", "login", null, new { @class = "nav-link d-inline", @style = "color:#fff; font-weight:bold;" })
+                    </li>
+                }
+
+                <li class="nav-item">
+                    @*<a class="nav-link">
+                            <img src="~/Content/Icons/013-lifeline-1.png" style="display:inline-block; border-radius:50%;" height="30" width="30" />
+                        </a>*@
+                </li>
+                <li class="nav-item">
+                    @*<a class="nav-link">
+                            <img src="~/Content/Icons/064-medical-2.png" style="display:inline-block; border-radius:50%;" height="30" width="30" />
+                        </a>*@
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <!--layout for all pages-->
+    <div class="page-wrap container">
+        <div class="row">
+            <div class="col-12">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="push"></div>
+    </div>
+
+    <!--layout footer for the site-->
+    <div class="site-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="text-justify" style="padding:5%;">
+                    <span style="font-weight:bold;">ABOUT US</span><br />
+                    Best internet cafe to discover<br />
+                    local points of interest. Map where your photos.
+                    <br /><br />
+                    Location: Shop NO 6A JUNXION Mall<br />
+                    E-mail: FIRSTINKPHILLPI@gmail.com<br />
+                    Phone:08137242151 / 073 4653291<br />
+                    Open Hour:09:00 - 18:00
+                </div>
+            </div>
+        </div>
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+    <script src="~/Scripts/main/main.js"></script>
+
+</body>
+</html>
