@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - Cooming Soon</title>
+
+    <link href="~/Content/email.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+</head>
+<body>
+    <div class="page-wrap container" style="padding:5%;">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 style="font-family:monospace; font-weight:bold; color:#183153;">Add More Awesome Yourself!</h1>
+                <div class="text-center" style="color:#183153; font-size:1.5em;">Last but certainly not least, personally extend Font Awesome to suit<br /> what you need and want.</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-10">
+                <div class="email-box">
+                    <h2 style="font-family:monospace; font-weight:bold;">Upload Your Own Icons!</h2>
+                    <div class="text-left">With Font Awesome 6, you can now upload your own icons to a kit and easily use them right alongside Font Awesome icons
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i style="font-size: 1em; color:#fab005;" class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="col-11">
+                                    <div class="font-weight-bold" style="color:#fff;">
+                                        What does Version 6 include?
+                                    </div>
+                                    <div class="text-left" style="color:#fff;">
+                                        This feature is almost ready for release as<br /> a beta. Folks who pre-order will get early access!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-1">
+                                    <i style="font-size: 1em; color:#fab005;" class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="col-11">
+                                    <div class="font-weight-bold" style="color:#fff;">
+                                        What does Version 6 include?
+                                    </div>
+                                    <div class="text-left" style="color:#fff;">
+                                        This feature is almost ready for release as<br /> a beta. Folks who pre-order will get early access!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">Email us</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-12"><h4 style="font-family:monospace; font-weight:bold; color:#183153;">Usefull links</h4></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @Html.ActionLink("Pour some opinions", "opinions", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted;margin-top:5%;" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @Html.ActionLink("Email us", "email", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;margin-top:5%;" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @Html.ActionLink("have some playlist", "playlist", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;margin-top:5%;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="push"></div>
+    </div>
+
+
+    <div class="site-footer">
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+</body>
+</html>

@@ -42,14 +42,14 @@ html, body {
     width: 70%;
     margin: 0 auto;
     padding: 3%;
-    background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-    height: 350px;
+    background: rgb(24, 49, 83); /* Fallback color */
+    background: rgba(24, 49, 83, 0.5); /* Black background with 0.5 opacity */
+    height: 400px;
     top: 40%;
     color: #fff;
     border-radius: 5px;
     /*border: 3px solid #BADA55;*/
-    border: 3px solid #ff006e;
+    border: 3px solid #ffd43b;
 }
 .relative-band-absolute {
     height: 100%;
@@ -242,7 +242,7 @@ html, body {
 
 .site-footer {
     width: 100%;
-    background-color: #1D1F27;
+    background-color: #183153;
     height: auto;
     padding: 5px;
     color: #fff;

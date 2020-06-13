@@ -96,6 +96,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\email.css" />
     <Content Include="Content\fontawesome\css\all.css" />
     <Content Include="Content\fontawesome\css\all.min.css" />
     <Content Include="Content\fontawesome\css\brands.css" />
@@ -1861,7 +1862,10 @@
     <Content Include="Content\images\serious-black-woman-standing-with-storage-bag-4177839.jpg" />
     <Content Include="Content\images\watering-process-of-thin-green-sprout-4207907.jpg" />
     <Content Include="Content\images\woman-sitting-on-sofa-bed-wearing-sunglasses-965324.jpg" />
+    <Content Include="Content\opinion.css" />
+    <Content Include="Content\playlist.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\what.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2059,6 +2063,10 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <Content Include="Views\Home\what.cshtml" />
+    <Content Include="Views\Home\opinion.cshtml" />
+    <Content Include="Views\Home\email.cshtml" />
+    <Content Include="Views\Home\playlist.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,46 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+html, body {
+    /*background-color:#020F1D;*/
+    /*background-color: #f7f7f7;*/
+    /*background-color: #f6f8f9;*/
+    /*background-color: #181e30;*/
+    /*color: #0074ff;*/
+    background-color: #ffffff;
+    color: #000;
+    height: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+}
+
+.body-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.page-wrap {
+    /*background-image: url("images/astronomy-atmosphere-earth-exploration-220201.jpg");*/
+    min-height: 100%;
+    /*height: 100%;*/
+    /*background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    padding:5%;
+}
+
+    .page-wrap:after {
+        content: "";
+        display: block;
+        height: 10px;
+        /*border-bottom: 1px solid #e1e4e8;*/
+    }
+.site-footer {
+    width: 100%;
+    background-color: #183153;
+    height: auto;
+    padding: 5px;
+    color: #fff;
+    text-align: center;
+}

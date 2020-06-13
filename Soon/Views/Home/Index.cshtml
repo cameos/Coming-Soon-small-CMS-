@@ -14,18 +14,14 @@
         <div style="font-weight:bold;margin-bottom:10%;" class="text-center">Stay tuned for something amazing</div>
 
 
-        <div class="realtive-text-center"><a href="#" style="text-decoration:none; cursor:pointer; color:#fff;">what is this? <i style="font-size: 1em; color: Tomato;" class="fas fa-angle-double-down"></i></a></div>
-         <div class="realtive-text-center"><a href="#" style="text-decoration:none; cursor:pointer;color:#fff;">pour opinions <i style="font-size: 1em; color: Tomato;" class="fas fa-brain"></i></a></div>
-         <div class="realtive-text-center">
-            <a href="#" style="text-decoration:none; cursor:pointer;color:#fff;">email us <i style="font-size: 1em;
-        color: Tomato;" class="fas fa-envelope-open-text"></i>
-            </a>
-        </div>
-         <div class="realtive-text-center"><a href="#" style="text-decoration:none; cursor:pointer;color:#fff;">have a playlist <i style="font-size: 1em; color: Tomato;" class="fas fa-icons"></i></a></div>
+        <div class="realtive-text-center"> <i style="font-size: 1em; color:#ffd43b;" class="fas fa-angle-double-down"></i> @Html.ActionLink("what is is this? ", "what", "soon", null, new {@style="text-decoration:none; cursor:pointer; color:#fff;" })   </div>
+        <div class="realtive-text-center"> <i style="font-size: 1em; color: #ffd43b;" class="fas fa-brain"></i> @Html.ActionLink("Pour some opinions", "opinions", "soon", null, new { @style = "text-decoration:none; cursor:pointer; color:#fff;" })</div>
+        <div class="realtive-text-center"> <i style="font-size: 1em; color: #ffd43b;" class="fas fa-envelope-open-text"></i> @Html.ActionLink("Email us", "email", "soon", null, new { @style = "text-decoration:none; cursor:pointer; color:#fff;" })</div>
+        <div class="realtive-text-center">  <i style="font-size: 1em; color: #ffd43b;" class="fas fa-icons"></i> @Html.ActionLink("have some playlist", "playlist", "soon", null, new { @style = "text-decoration:none; cursor:pointer; color:#fff;" })</div>
 
 
 
-        <div class="center-block">
+        <div class="center-block" style="margin-top:5%;">
             <div class="realtive-text-center">
                 <a href="#" style="text-decoration:none; cursor:pointer; color:#fff;">
                     <img src="~/Content/icons/social/036-facebook.png" height="50" width="50" style="border-radius:50%;" />
@@ -47,6 +43,8 @@
                 </a>
             </div>
         </div>
+
+
     </div>
 </div>
 
