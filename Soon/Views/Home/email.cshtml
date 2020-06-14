@@ -18,32 +18,56 @@
 </head>
 <body>
     <div class="page-wrap container" style="padding:5%;">
+        <!--Success modal (for all sucess this will be called-->
+        <div class="modal fade" id="success-contact-modal" tabindex="-1" role="dialog" aria-labelledby="success-contact-modal-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="success-contact-modal-title">
+                            <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""></span>
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="~/Content/icons/063-heart.png" height="30" width="30" class="rounded" style="display:inline-block;" />  <span id="body-back" style=""></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @Html.ActionLink("Home", "Home", "Index", new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="row">
+
+
+
+
+        <div class="row" style="margin-bottom:5%;">
             <div class="col-12 text-center">
                 <h1 style="font-family:monospace; font-weight:bold; color:#183153;">Add More Awesome Yourself!</h1>
-                <div class="text-center" style="color:#183153; font-size:1.5em;">Last but certainly not least, personally extend Font Awesome to suit<br /> what you need and want.</div>
+                <div class="text-center" style="color:#183153;">Last bust not least, You are a developer on all levels? Email me your views and ideas maybe want to contribute to virtual hacker marathons feel free to email me. Your opinions matter who knoww maybe we can write better infrastructure software to contribute to Future South Africa.</div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <div class="email-box">
-                    <h2 style="font-family:monospace; font-weight:bold;">Upload Your Own Icons!</h2>
-                    <div class="text-left">With Font Awesome 6, you can now upload your own icons to a kit and easily use them right alongside Font Awesome icons
+                    <h2 style="font-family:monospace; font-weight:bold;">Email thoughts</h2>
+                    <div class="text-left">
+                        Are you a software developer, web developer, graphic designer or any where between making systems for black economical disadvantaged society, the why hold back you thoughts?
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top:5%;">
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-1">
-                                    <i style="font-size: 1em; color:#fab005;" class="fas fa-shipping-fast"></i>
+                                <div class="col-sm-1">
+                                    <i style="color:#fab005;" class="fas fa-tv"></i>
                                 </div>
-                                <div class="col-11">
-                                    <div class="font-weight-bold" style="color:#fff;">
-                                        What does Version 6 include?
-                                    </div>
+                                <div class="col-sm-11">
                                     <div class="text-left" style="color:#fff;">
-                                        This feature is almost ready for release as<br /> a beta. Folks who pre-order will get early access!
+                                        Easily add your thoughts, views and values to software for economical disadvantaged society
                                     </div>
                                 </div>
                             </div>
@@ -51,52 +75,56 @@
                         <div class="col-6">
                             <div class="row">
                                 <div class="col-1">
-                                    <i style="font-size: 1em; color:#fab005;" class="fas fa-shipping-fast"></i>
+                                    <i style="font-size: 1em; color:#fab005;" class="fas fa-users-cog"></i>
                                 </div>
                                 <div class="col-11">
-                                    <div class="font-weight-bold" style="color:#fff;">
-                                        What does Version 6 include?
-                                    </div>
                                     <div class="text-left" style="color:#fff;">
-                                        This feature is almost ready for release as<br /> a beta. Folks who pre-order will get early access!
+                                        Easily add your thoughts, views and values to software for economical disadvantaged society
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top:5%;">
                         <div class="col-12">
-                            <div class="text-center">Email us</div>
+                            <div class="text-center h1" style="font-weight:bold;">Fill the form it's easy.</div>
+                        </div>
+                        <div class="col-12">
+                            @*Developers and others email form*@
+                            <div id="remove_error" class="background_error_hidden">
+                                <span id="text_error"></span>
+                            </div>
+                            <form id="social_form" enctype="multipart/form-data" name="social_form" class="social_box">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <input type="text" class="form-control social_box_text" id="social_name" name="social_name" placeholder="Name">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <input type="text" class="form-control social_box_text" id="social_surname" name="social_surname" placeholder="Surname">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12">
+                                        <input type="email" class="form-control social_box_text" id="social_email" name="social_email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-12">
+                                        <textarea class="form-control social_box_text" id="social_thought" name="social_thought" placeholder="Share thoughts..."></textarea>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary social-btn" value="submit" />
+                            </form>
                         </div>
                     </div>
+                    <div class="text-left">
+                        @Html.ActionLink("Home Page", "Index", "Home", null, new { @style = "color:#ffd800; font-weight:bold;" })
+                        @*<a href="#" style="color:#fab005;"><i style="color:#fab005;" class="fas fa-arrow-left"></i> Home Page</a>*@
+                    </div>
                 </div>
             </div>
-            <div class="col-2">
-                <div class="row">
-                    <div class="col-12"><h4 style="font-family:monospace; font-weight:bold; color:#183153;">Usefull links</h4></div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        @Html.ActionLink("Home", "Index", "Home", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;" })
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        @Html.ActionLink("Pour some opinions", "opinions", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted;margin-top:5%;" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        @Html.ActionLink("Email us", "email", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;margin-top:5%;" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        @Html.ActionLink("have some playlist", "playlist", "soon", null, new { @style = "text-decoration-line:underline; text-decoration-style:dotted; margin-top:5%;margin-top:5%;" })
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <div class="push"></div>
@@ -110,5 +138,6 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Content/fontawesome/js/all.js"></script>
+    <script src="~/Scripts/main/email.js"></script>
 </body>
 </html>
