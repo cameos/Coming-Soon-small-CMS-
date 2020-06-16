@@ -45,3 +45,46 @@ html, body {
     color: #fff;
     text-align: center;
 }
+
+.opinion_top {
+    width: 100%;
+    padding: 5%;
+    background-color: #183153;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5em;
+    height: 300px;
+}
+
+.opinion_line {
+    margin-top: 5%;
+    border: 1px solid #f0f1f3;
+}
+.opinion_line2 {
+    border: 1px solid #f0f1f3;
+}
+.opinion_add_box {
+    margin-top: 5%;
+    border: 1px solid #183153;
+    border-radius: 2px;
+}
+.opinion_add_box_btn {
+    background-color: #ffd800 !important;
+    border: 1px solid #ffd800 !important;
+    margin: 10px;
+    color: #183153 !important;
+    font-weight: bold !important;
+    text-decoration: none;
+    border-radius: 5px !important;
+}
+
+    .opinion_add_box_btn:hover {
+        background-color: #ffd800 !important;
+        border: 1px solid #ffd800 !important;
+        margin: 10px;
+        color: #183153 !important;
+        font-weight: bold !important;
+        text-decoration: none;
+        border-radius: 5px !important;
+    }

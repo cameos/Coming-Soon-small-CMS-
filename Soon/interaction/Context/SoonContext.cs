@@ -14,7 +14,7 @@ namespace Soon.interaction.Context
 {
     public class SoonContext : DbContext
     {
-        public SoonContext():base()
+        public SoonContext():base("Name=someday")
         {
             Database.SetInitializer<SoonContext>(new MigrateDatabaseToLatestVersion<SoonContext, Configuration>(useSuppliedContext: true));
         }
