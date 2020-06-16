@@ -88,3 +88,50 @@ html, body {
         text-decoration: none;
         border-radius: 5px !important;
     }
+
+.opinion_add_box_btn_r {
+    background-color: #183153 !important;
+    border: 1px solid #183153 !important;
+    margin: 10px;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    text-decoration: none;
+    border-radius: 5px !important;
+}
+
+.opinion_add_box_btn_r:hover {
+    background-color: #183153 !important;
+    border: 1px solid #183153 !important;
+    margin: 10px;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    text-decoration: none;
+    border-radius: 5px !important;
+}
+
+
+.opinion_text {
+    background-color: #fff !important;
+    color: #183153 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 2px solid #183153 !important;
+    border-radius: 0 !important;
+}
+
+    .opinion_text:focus input:focus {
+        background-color: #fff !important;
+        color: #183153 !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-bottom: 2px solid #183153 !important;
+        border-radius: 0 !important;
+    }
+
+.news-back-imge {
+    height: 500px;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* remove extra space below image */
+}
