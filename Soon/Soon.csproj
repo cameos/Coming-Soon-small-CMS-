@@ -2063,6 +2063,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="interaction\Abstracts\Concrete\ApplicationConcrete.cs" />
+    <Compile Include="interaction\Abstracts\Concrete\ArticleConcrete.cs" />
+    <Compile Include="interaction\Abstracts\Concrete\CommentConcrete.cs" />
+    <Compile Include="interaction\Abstracts\Concrete\UserConcrete.cs" />
+    <Compile Include="interaction\Abstracts\Interfaces\IApplication.cs" />
+    <Compile Include="interaction\Abstracts\Interfaces\IArticle.cs" />
+    <Compile Include="interaction\Abstracts\Interfaces\IComment.cs" />
+    <Compile Include="interaction\Abstracts\Interfaces\IUser.cs" />
+    <Compile Include="interaction\Context\SoonContext.cs" />
     <Compile Include="interaction\ModelConfiguration\ApplicationConfiguration.cs" />
     <Compile Include="interaction\ModelConfiguration\ArticleConfiguration.cs" />
     <Compile Include="interaction\ModelConfiguration\CommentConfiguration.cs" />
@@ -2070,7 +2079,9 @@
     <Compile Include="interaction\Models\Application.cs" />
     <Compile Include="interaction\Models\Articles.cs" />
     <Compile Include="interaction\Models\Comment.cs" />
+    <Compile Include="interaction\Models\NewApplication.cs" />
     <Compile Include="interaction\Models\User.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DeveloperEmail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
