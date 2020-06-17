@@ -23,14 +23,228 @@
     <link href="~/Content/fontawesome/css/all.css" />
 </head>
 <body>
+    <!--opinion modal-->
+    <div class="modal fade" id="opinion_article_modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="opinion_article_modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content justify-content-center" style="border-radius:unset;border:1px solid #e8e5e5;">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="opinion_article_modal-title">
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""> Add new article</span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="post" id="add_article_form" name="add_article_form" enctype="multipart/form-data">
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; padding:1%;">
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> Add title
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-justify">
+                                                <label for="opinion_title" class="col-form-label">Add title</label>
+                                                <input type="text" class="form-control opinion_text" placeholder="add article title" name="opinion_title" id="opinion_title" aria-labelledby="opinion_title_help" />
+                                                <small id="opinion_title_help" class="form-text text-muted">Add title associated with the  title</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--add picture for the news-->
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/029-video marketing.png" height="50" width="50" class="rounded" style="display:inline-block;" />  Choose Image for the news article
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <label for="opinion_image" class="col-form-label">select image</label>
+                                                <input type="file" id="opinion_image" name="opinion_image" class="form-control-file change_image_article" aria-labelledby="opinion_image_help">
+                                                <small id="opinion_image_help" class="form-text text-muted">Choose category to assocciate with the news and help the system categories the news</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div style="border:1px solid #d1d5da; margin-top:1%; padding:1%;">
+                                                <div class="text-center potrait-image image_preview_article">
+                                                    Preview image here
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--start type the news article-->
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/036-form.png" height="50" width="50" class="rounded" style="display:inline-block;" />  Happy Writing the article
+                                    </div>
+                                    <div style="margin-top:2%;" class="tinymce" id="tinymce">
+                                        <label for="opinion_type_article" class="col-form-label">Write below</label>
+                                        <textarea id="opinion_type_article" name="opinion_type_article" class="form-control radio-login-input mceEditor"></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <input type="submit" onclick="tinyMCE.triggerSave(true,true);" value="publish this article" class="btn btn-primary opinion_add_box_btn_r" />
+                                    <input type="reset" value="Cancel everything" class="btn btn-warning opinion_add_box_btn" />
+                                </div>
+                            </form>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                @*<div class="modal-footer">
+                        @Html.ActionLink("Home", "Home", "Index", new { @class = "btn btn-primary" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    <!--login modal-->
+    <div class="modal fade" id="opinion-login-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-login-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="opinion-login-modal-title">
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""></span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="post" id="opinion_login_form" name="opinion_login_form" enctype="multipart/form-data">
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; padding:1%;">
+
+                                    <!--login title-->
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> <span class="h3" id="login_text"></span>
+                                    </div>
+
+                                    <!--enter email-->
+                                    <div class="row" style="margin-top:2%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="email" class="form-control opinion_text" placeholder="enter email address" name="opinion_login_email" id="opinion_login_email" aria-labelledby="opinion_login_email_help" />
+                                                <small id="opinion_login_email_help" class="form-text text-muted">Add email associated with the  account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--enter password-->
+                                    <div class="row" style="margin-top:2%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="password" class="form-control opinion_text" placeholder="enter password" name="opinion_login_password" id="opinion_login_password" aria-labelledby="opinion_login_password_help" />
+                                                <small id="opinion_login_password_help" class="form-text text-muted">Add password associated with the account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <input type="submit" value="login, phakathi inside" class="btn btn-primary opinion_add_box_btn_r" />
+                                    <input type="reset" value="cancel everything" class="btn btn-warning opinion_add_box_btn" id="login_cancel" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="modal-footer">
+                        @Html.ActionLink("Home", "Home", "Index", new { @class = "btn btn-primary" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    <!--register new user modal-->
+    <div class="modal fade" id="opinion-register-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-register-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="opinion-register-modal-title">
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""></span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="post" id="opinion_register_form" name="opinion_register_form" enctype="multipart/form-data">
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; padding:1%;">
+
+                                    <!--login title-->
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> <span class="h3" id="login_text"></span>
+                                    </div>
+
+                                    <!--enter username-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="text" class="form-control opinion_text" placeholder="enter username" name="opinion_register_username" id="opinion_register_username" aria-labelledby="opinion_register_username_help" />
+                                                <small id="opinion_register_username_help" class="form-text text-muted">Add username for account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--enter email-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="email" class="form-control opinion_text" placeholder="enter email address" name="opinion_register_email" id="opinion_register_email" aria-labelledby="opinion_register_email_help" />
+                                                <small id="opinion_login_email_help" class="form-text text-muted">Add email associated with the  account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--enter password-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="password" class="form-control opinion_text" placeholder="enter password" name="opinion_register_password" id="opinion_register_password" aria-labelledby="opinion_register_password_help" />
+                                                <small id="opinion_register_password_help" class="form-text text-muted">Add password associated with the account</small>
+
+
+                                                <input type="password" class="form-control opinion_text" placeholder="re-enter password" name="opinion_register_repassword" id="opinion_register_repassword" aria-labelledby="opinion_register_repassword_help" />
+                                                <small id="opinion_register_password_rehelp" class="form-text text-muted">Add password associated with the account</small>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <input type="submit" value="register, phakathi inside" class="btn btn-primary opinion_add_box_btn_r" />
+                                    <input type="reset" value="cancel everything" class="btn btn-warning opinion_add_box_btn" id="register_cancel" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="modal-footer">
+                        @Html.ActionLink("Home", "Home", "Index", new { @class = "btn btn-primary" })
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
     <div class="opinion_top">Hello</div>
 
     <div class="page-wrap" style="padding:5%;">
         <div class="opinion_line"></div>
         <div class="opinion_add_box">
-            @Html.ActionLink("Add new article", "new", "articles", null, new {@class="btn btn-primary opinion_add_box_btn", @id="add_article" })
-            @*<button class="btn btn-primary opinion_add_box_btn" id="add_article">Add new article</button>*@
-            <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">you can new article to share thought at the click of the button, so why not try now and see what happens?</div>
+            <form id="add_article" name="add_article" enctype="multipart/form-data" style="display:inline-block;">
+                <input type="hidden" value="modal" id="pop_modal" name="pop_modal" />
+                <input type="submit" class="btn btn-primary opinion_add_box_btn" value="Add new article" />
+            </form>
+            @*@Html.ActionLink("Add new article", "new", "articles", null, new { @class = "btn btn-primary opinion_add_box_btn", @id = "add_article" })*@
+            @*<button class="btn btn-primary opinion_add_box_btn" id="add_article" style="display:inline-block;">Add new article</button>
+                <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">you can new article to share thought at the click of the button, so why not try now and see what happens?</div>*@
         </div>
 
         <div class="container" style="margin-top:5%;">

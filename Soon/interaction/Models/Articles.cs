@@ -23,7 +23,7 @@ namespace Soon.interaction.Models
 
 
 
-        public User UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
        
 

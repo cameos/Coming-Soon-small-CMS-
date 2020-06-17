@@ -57,6 +57,46 @@ namespace Soon.interaction.Abstracts.Concrete
             return apps;
         }
 
+        public Application get_by_email(string email)
+        {
+            Application application = new Application();
+            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || email == string.Empty)
+                return application;
+            
+            using(_soon = new SoonContext())
+            {
+                using(var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        if (!_soon.Database.Exists())
+                            return application;
+                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
+                            _soon.Database.Connection.Open();
+
+
+                        application = (from a in _soon.Application
+                                       where (a.Email == email)
+                                       select a).SingleOrDefault<Application>();
+                        if (application.ApplicationId == null || application.ApplicationId == Guid.Empty)
+                            return application;
+                        else
+                        {
+                            _soon.SaveChanges();
+                            _transaction.Commit();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        _transaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
+            return application;
+        }
+
         public Application get_one(Guid id)
         {
             Application app = new Application();

@@ -25,6 +25,7 @@ namespace Soon.interaction.ModelConfiguration
             this.Property(c => c.Salt).HasColumnType("text").IsUnicode().IsRequired();
             this.Property(c => c.Password).HasColumnType("text").IsUnicode().IsRequired();
             this.Property(c => c.DatetimeAdded).HasPrecision(0).IsRequired();
+            this.Property(c => c.VerifiedValue).HasColumnType("nvarchar").HasMaxLength(150).IsFixedLength().IsRequired();
 
 
 

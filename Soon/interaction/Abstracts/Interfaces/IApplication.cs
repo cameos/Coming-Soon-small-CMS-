@@ -15,6 +15,7 @@ namespace Soon.interaction.Abstracts.Interfaces
         bool delete_application();
         List<Application> get_all();
         Application get_one(Guid id);
+        Application get_by_email(string email);
 
     }
 }

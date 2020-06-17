@@ -21,6 +21,7 @@ namespace Soon.interaction.Models
         public string Salt { get; set; }
         public DateTime DatetimeAdded { get; set; }
         public string Verified { get; set; }
+        public string VerifiedValue { get; set; }
 
 
         //collection
