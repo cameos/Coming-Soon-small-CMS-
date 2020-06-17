@@ -118,9 +118,10 @@ $(document).ready(function () {
                         $("#remove_error").removeClass("background_error_hidden").addClass("background_error_show");
                     }
                     else if (modal.indexOf("register") !== -1) {
-                        var target = $("#login_text");
+                        var target = $("#login_text_r");
                         target.empty().html();
                         target.append(modal);
+                        $("#opinion-login-modal").modal('hide');
                         $("#opinion-register-modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }
@@ -151,7 +152,7 @@ $(document).ready(function () {
                         var target = $("#login_text");
                         target.empty().html();
                         target.append(modal);
-                        $("#opinion-login-modal").modal('hide');
+                        
                         $("#opinion_register_form").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }

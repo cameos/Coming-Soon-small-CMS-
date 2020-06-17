@@ -77,8 +77,8 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         application = (from a in _soon.Application
                                        where (a.Email == email)
-                                       select a).SingleOrDefault<Application>();
-                        if (application.ApplicationId == null || application.ApplicationId == Guid.Empty)
+                                       select a).FirstOrDefault<Application>();
+                        if (application == null)
                             return application;
                         else
                         {
