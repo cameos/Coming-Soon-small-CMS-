@@ -16,6 +16,6 @@ namespace Soon.interaction.Abstracts.Interfaces
         List<Application> get_all();
         Application get_one(Guid id);
         Application get_by_email(string email);
-
+        bool new_application(NewApplication application);
     }
 }

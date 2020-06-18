@@ -155,7 +155,7 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         _soon.Entry<Application>(application).State = EntityState.Modified;
                         _soon.SaveChanges();
-                        _transaction.Rollback();
+                        _transaction.Commit();
 
                         flag = true;
 
@@ -169,5 +169,62 @@ namespace Soon.interaction.Abstracts.Concrete
             }
             return flag;
         }
+
+        public bool new_application(NewApplication application)
+        {
+            bool flag = false;
+            if (application == null || application.Application == null || application.User == null)
+                return flag;
+
+            Application app = application.Application;
+            if (app == null)
+                return flag;
+
+            User user = application.User;
+            if (user == null)
+                return flag;
+
+            using (_soon = new SoonContext())
+            {
+                using (var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        if (!_soon.Database.Exists())
+                            return flag;
+                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
+                            _soon.Database.Connection.Open();
+
+
+                        app.DatetimeAdded = DateTime.Now;
+
+                        _soon.Application.Add(app);
+                        var id = app.ApplicationId;
+                        if (id == null || id == Guid.Empty)
+                            return (flag = false);
+
+
+                        user.ApplicationId = id;
+                        _soon.User.Add(user);
+                        var id_user = user.UserId;
+                        if (id_user == null || id_user == Guid.Empty)
+                            return (flag = false);
+
+
+                        _soon.SaveChanges();
+                        _transaction.Commit();
+                        flag = true;
+
+                    }
+                    catch (Exception e)
+                    {
+                        _transaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
+            return flag;
+        }
+
     }
 }

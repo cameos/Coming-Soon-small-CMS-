@@ -9,5 +9,6 @@ namespace Soon.Models
     {
         public Guid ApplicationId { get; set; }
         public Guid UserId { get; set; }
+        public string Username { get; set; }
     }
 }

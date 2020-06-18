@@ -2235,8 +2235,10 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DeveloperEmail.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Register.cs" />
     <Compile Include="Models\SecurityEncryption.cs" />
     <Compile Include="Models\UserSession.cs" />
+    <Compile Include="Models\Verification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

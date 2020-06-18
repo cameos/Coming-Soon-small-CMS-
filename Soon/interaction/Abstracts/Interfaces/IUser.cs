@@ -9,10 +9,10 @@ namespace Soon.interaction.Abstracts.Interfaces
 {
     public interface IUser
     {
-        bool new_application(NewApplication application);
         bool update_user(User user);
         bool delete_suer();
         List<User> get_all();
         User get_one(Guid id);
+        User get_by_application(Guid id);
     }
 }

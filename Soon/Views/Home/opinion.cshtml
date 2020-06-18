@@ -23,13 +23,37 @@
     <link href="~/Content/fontawesome/css/all.css" />
 </head>
 <body>
+
+    <!--error modal-->
+    <div class="modal fade" id="opinion_article_error_modal" tabindex="-1" role="dialog" aria-labelledby="opinion_article_error_modal_title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="opinion_article_error_modal_title">
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title_back_error" style=""> Error</span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="~/Content/icons/003-configuration.png" height="30" width="30" class="rounded" style="display:inline-block;" />  <span id="back_error" style=""></span>
+                        </div>
+                        <div class="col-12 text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                            <button type="button" class="btn btn-warning opinion_add_box_btn" id="error_cancel">Cancel everything</button>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+
     <!--opinion modal-->
     <div class="modal fade" id="opinion_article_modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="opinion_article_modal-title" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content justify-content-center" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="opinion_article_modal-title">
-                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""> Add new article</span>
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back-t" style=""></span>
                     </h3>
                 </div>
                 <div class="modal-body">
@@ -161,7 +185,7 @@
 
     <!--register new user modal-->
     <div class="modal fade" id="opinion-register-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-register-modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title" id="opinion-register-modal-title">
@@ -189,6 +213,26 @@
                                         </div>
                                     </div>
 
+                                    <!--enter name-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="text" class="form-control opinion_text" placeholder="enter first name" name="opinion_register_name" id="opinion_register_name" aria-labelledby="opinion_register_name_help" />
+                                                <small id="opinion_register_name_help" class="form-text text-muted">Add name for account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--enter surname-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="text" class="form-control opinion_text" placeholder="enter surname" name="opinion_register_surname" id="opinion_register_surname" aria-labelledby="opinion_register_surname_help" />
+                                                <small id="opinion_register_name_help" class="form-text text-muted">Add surname for account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <!--enter email-->
                                     <div class="row" style="margin-top:3%;">
@@ -199,6 +243,17 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!--enter phone-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="text" class="form-control opinion_text" placeholder="enter phone (complusory)" name="opinion_register_phone" id="opinion_register_phone" aria-labelledby="opinion_register_phone_help" />
+                                                <small id="opinion_register_phone_help" class="form-text text-muted">Add phone associated with the  account</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <!--enter password-->
                                     <div class="row" style="margin-top:3%;">
@@ -219,7 +274,7 @@
 
                                 <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
                                     <input type="submit" value="register, phakathi inside" class="btn btn-primary opinion_add_box_btn_r" />
-                                    <input type="reset" value="cancel everything" class="btn btn-warning opinion_add_box_btn" id="register_cancel" />
+                                    @*<input type="reset" value="cancel everything" class="btn btn-warning opinion_add_box_btn" id="register_cancel" />*@
                                 </div>
                             </form>
                         </div>
@@ -233,10 +288,77 @@
     </div>
 
 
+    <!--verify and login user-->
+    <div class="modal fade" id="opinion-verify-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-verify-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="opinion-verify-modal-title">
+                        <img src="~/Content/icons/039-alert.png" height="30" width="30" class="rounded" style="display:inline-block;" /> <span id="title-back" style=""></span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="post" id="opinion_verify_form" name="opinion_verify_form" enctype="multipart/form-data">
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; padding:1%;">
+
+                                    <!--login title-->
+                                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                                        <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> <span class="h3" id="login_text_v"></span>
+                                    </div>
+
+                                    <!--enter code-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="text" class="form-control opinion_text" placeholder="enter code" name="opinion_register_verify" id="opinion_register_verify" aria-labelledby="opinion_register_verify_help" />
+                                                <small id="opinion_register_verify_help" class="form-text text-muted">Enter code from email</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--enter email-->
+                                    <div class="row" style="margin-top:3%;">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-justify">
+                                                <input type="email" class="form-control opinion_text" placeholder="enter email" name="opinion_register_verify_email" id="opinion_register_verify_email" aria-labelledby="opinion_register_verify_email_help" />
+                                                <small id="opinion_register_verify_email_help" class="form-text text-muted">Enter email from email</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                                    <input type="submit" value="Verify, phakathi inside" class="btn btn-primary opinion_add_box_btn_r" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="opinion_top">Hello</div>
 
     <div class="page-wrap" style="padding:5%;">
         <div class="opinion_line"></div>
+
+        <div class="user_block_hidden" id="user_block">
+            <div class="row" style="margin-top:2%;">
+                <div class="col-12">
+                    <div class="clearfix">
+                        <div class="float-right"><a href="" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
         <div class="opinion_add_box">
             <form id="add_article" name="add_article" enctype="multipart/form-data" style="display:inline-block;">
                 <input type="hidden" value="modal" id="pop_modal" name="pop_modal" />
@@ -277,6 +399,7 @@
     </div>
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Content/fontawesome/js/all.js"></script>
 

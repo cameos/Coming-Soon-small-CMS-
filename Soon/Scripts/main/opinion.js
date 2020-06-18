@@ -1,5 +1,21 @@
 ﻿var $ = jQuery.noConflict();
 $(document).ready(function () {
+    $(document).on("click", "#user_sign", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    });
+
+    $('[data-toggle="popover"]').popover({
+        animation: true,
+        placement: 'bottom',
+        container: 'body',
+        trigger: 'focus',
+        title: 'Information',
+        content: '<div class="text-left"><a href="#" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Your articles</a></div><div class="text-left"><a href="#" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Signout</a></div>',
+        html: true,
+        delay: { show: 0, hide: 500 }
+    });   
+
     tinymce.init({
         selector: '#opinion_type_article',
         editor_selector: "mceEditor",
@@ -55,6 +71,24 @@ $(document).ready(function () {
         }
     });
 
+   
+
+    $(document).on("click", "#login_cancel", function (e) {
+        e.preventDefault();
+        $("#opinion-login-modal").modal('hide');
+
+    });
+    $(document).on("click", "#error_cancel", function (e) {
+        e.preventDefault();
+        $("#opinion_article_error_modal").modal('hide');
+
+    });
+    $(document).on("click", "#register_cancel", function (e) {
+        e.preventDefault();
+        $("#opinion-register-modal").modal('hide');
+    });
+
+
     $(document).on("submit", "#add_article", function (e) {
         e.preventDefault();
 
@@ -70,37 +104,33 @@ $(document).ready(function () {
             success: function (modal) {
                 if (typeof modal == 'string' || modal instanceof String) {
                     if (modal.indexOf("error") !== -1) {
-                        var target = $("#login_text");
+                        var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
-                        $("#remove_error").removeClass("background_error_hidden").addClass("background_error_show");
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                     else if (modal.indexOf("login") !== -1) {
                         var target = $("#login_text");
                         target.empty().html();
                         target.append(modal);
                         $("#opinion-login-modal").modal({ keyboard: false, backdrop: 'static' });
+                    } else if (modal.indexOf("add") !== -1) {
+                        var target = $("#title-back-t");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }
             }
         });
 
-        
-    });
 
-    $(document).on("click", "#login_cancel", function (e) {
-        e.preventDefault();
-        $("#opinion-login-modal").modal('hide');
-
-    });
-    $(document).on("click", "#register_cancel", function (e) {
-        e.preventDefault();
-        $("#opinion-register-modal").modal('hide');
     });
     $(document).on("submit", "#opinion_login_form", function (e) {
         e.preventDefault();
 
         var form = new FormData(document.getElementById("opinion_login_form"));
+
         $.ajax({
             method: "POST",
             url: "https://localhost:44363/articles/login",
@@ -112,10 +142,10 @@ $(document).ready(function () {
             success: function (modal) {
                 if (typeof modal == 'string' || modal instanceof String) {
                     if (modal.indexOf("error") !== -1) {
-                        var target = $("#login_text");
+                        var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
-                        $("#remove_error").removeClass("background_error_hidden").addClass("background_error_show");
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                     else if (modal.indexOf("register") !== -1) {
                         var target = $("#login_text_r");
@@ -123,10 +153,18 @@ $(document).ready(function () {
                         target.append(modal);
                         $("#opinion-login-modal").modal('hide');
                         $("#opinion-register-modal").modal({ keyboard: false, backdrop: 'static' });
+                    } else if (modal.indexOf("add") !== -1) {
+                        var target = $("#title-back-t");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#opinion-login-modal").modal('hide');
+                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
+                        $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }
             }
         });
+
     });
     $(document).on("submit", "#opinion_register_form", function (e) {
         e.preventDefault();
@@ -134,7 +172,7 @@ $(document).ready(function () {
         var form = new FormData(document.getElementById("opinion_register_form"));
         $.ajax({
             method: "POST",
-            url: "https://localhost:44363/articles/login",
+            url: "https://localhost:44363/articles/register",
             dataType: "json",
             data: form,
             contentType: false,
@@ -143,23 +181,60 @@ $(document).ready(function () {
             success: function (modal) {
                 if (typeof modal == 'string' || modal instanceof String) {
                     if (modal.indexOf("error") !== -1) {
-                        var target = $("#login_text");
+                        var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
-                        $("#remove_error").removeClass("background_error_hidden").addClass("background_error_show");
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
-                    else if (modal.indexOf("login") !== -1) {
-                        var target = $("#login_text");
+                    else if (modal.indexOf("verify") !== -1) {
+                        var target = $("#login_text_v");
                         target.empty().html();
                         target.append(modal);
-                        
-                        $("#opinion_register_form").modal({ keyboard: false, backdrop: 'static' });
+                        $("#opinion-register-modal").modal('hide');
+                        $("#opinion-verify-modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }
             }
         });
     });
+    $(document).on("submit", "#opinion_verify_form", function (e) {
+        e.preventDefault();
 
+        var form = new FormData(document.getElementById("opinion_verify_form"));
+        $.ajax({
+            method: "POST",
+            url: "https://localhost:44363/articles/verify",
+            dataType: "json",
+            data: form,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (modal) {
+                if (typeof modal == 'string' || modal instanceof String) {
+                    if (modal.indexOf("error") !== -1) {
+                        var target = $("#back_error");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
+                    }
+                    else if (modal.indexOf("verify") !== -1) {
+                        var target = $("#login_text_v");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#opinion-register-modal").modal('hide');
+                        $("#opinion-verify-modal").modal({ keyboard: false, backdrop: 'static' });
+                    } else if (modal.indexOf("add") !== -1) {
+                        var target = $("#title-back-t");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
+                        $("#opinion-verify-modal").modal('hide');
+                        $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
+                    }
+                } 
+            }
+        });
+    });
 
 
 });

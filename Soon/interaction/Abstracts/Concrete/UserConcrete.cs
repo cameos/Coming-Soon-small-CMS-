@@ -57,6 +57,44 @@ namespace Soon.interaction.Abstracts.Concrete
             return users;
         }
 
+        public User get_by_application(Guid id)
+        {
+            User user = new User();
+            if (id == null || id == Guid.Empty)
+                return user;
+            using(_soon = new SoonContext())
+            {
+                using(var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        if (!_soon.Database.Exists())
+                            return user;
+                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
+                            _soon.Database.Connection.Open();
+
+                        user = (from u in _soon.User
+                                where (u.ApplicationId == id)
+                                select u).FirstOrDefault<User>();
+                        if (user == null)
+                            return user;
+                        else
+                        {
+                            _soon.SaveChanges();
+                            _transaction.Commit();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        _transaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
+            return user;
+        }
+
         public User get_one(Guid id)
         {
             User user = new User();
@@ -94,54 +132,6 @@ namespace Soon.interaction.Abstracts.Concrete
                 }
             }
             return user;
-        }
-
-        public bool new_application(NewApplication application)
-        {
-            bool flag = false;
-            if (application.Application.ApplicationId != null || application.Application.ApplicationId != Guid.Empty || application.Application == null || application.User.UserId != null || application.User.UserId != Guid.Empty)
-                return flag;
-
-            Application app = application.Application;
-            User user = application.User;
-
-            using (_soon = new SoonContext())
-            {
-                using (var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
-                {
-                    try
-                    {
-                        if (!_soon.Database.Exists())
-                            return flag;
-                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
-                            _soon.Database.Connection.Open();
-
-                        _soon.Application.Add(app);
-                        var id = app.ApplicationId;
-                        if (id == null || id == Guid.Empty)
-                            return (flag = false);
-
-
-                        user.ApplicationId = id;
-                        _soon.User.Add(user);
-                        var id_user = user.UserId;
-                        if(id_user  == null || id_user == Guid.Empty)
-                            return (flag = false);
-
-
-                        _soon.SaveChanges();
-                        _transaction.Commit();
-                        flag = true;
-
-                    }
-                    catch (Exception e)
-                    {
-                        _transaction.Rollback();
-                        throw new Exception(e.Message);
-                    }
-                }
-            }
-            return flag;
         }
 
         public bool update_user(User user)

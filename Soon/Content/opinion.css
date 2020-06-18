@@ -135,3 +135,11 @@ html, body {
     max-height: 100%;
     display: block; /* remove extra space below image */
 }
+.user_block_hidden{
+    display:none;
+    visibility:hidden;
+}
+.user_block_show {
+    display:block;
+    visibility:visible;
+}
