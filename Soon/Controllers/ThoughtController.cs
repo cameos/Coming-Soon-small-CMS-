@@ -23,6 +23,7 @@ namespace Soon.Controllers
     {
 
         private IApplication _app;
+        private IArticle _art;
 
         public ThoughtController(IApplication app)
         {
@@ -30,8 +31,10 @@ namespace Soon.Controllers
         }
 
         //parameterless constructor
-        public ThoughtController() {
+        public ThoughtController()
+        {
             _app = new ApplicationConcrete();
+            _art = new ArticleConcrete();
         }
 
 
@@ -82,7 +85,7 @@ namespace Soon.Controllers
 
             var modal = new Object();
 
-            if(string.IsNullOrWhiteSpace(login.opinion_login_email) || !login.opinion_login_email.Contains("@") || string.IsNullOrWhiteSpace(login.opinion_login_password))
+            if (string.IsNullOrWhiteSpace(login.opinion_login_email) || !login.opinion_login_email.Contains("@") || string.IsNullOrWhiteSpace(login.opinion_login_password))
             {
                 modal = "error, something went wrong add all information";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
@@ -90,7 +93,7 @@ namespace Soon.Controllers
 
             //Application application = new Application();
             var application = _app.get_by_email(login.opinion_login_email);
-            if(application == null)
+            if (application == null)
             {
                 modal = "register and share opiniated articles";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
@@ -114,7 +117,7 @@ namespace Soon.Controllers
         {
             var modal = new Object();
 
-            if(string.IsNullOrWhiteSpace(register.opinion_register_username) || string.IsNullOrWhiteSpace(register.opinion_register_email) || !register.opinion_register_email.Contains("@") || string.IsNullOrWhiteSpace(register.opinion_register_password) || string.IsNullOrWhiteSpace(register.opinion_register_repassword) || (register.opinion_register_password != register.opinion_register_repassword) || string.IsNullOrWhiteSpace(register.opinion_register_name) || string.IsNullOrWhiteSpace(register.opinion_register_surname))
+            if (string.IsNullOrWhiteSpace(register.opinion_register_username) || string.IsNullOrWhiteSpace(register.opinion_register_email) || !register.opinion_register_email.Contains("@") || string.IsNullOrWhiteSpace(register.opinion_register_password) || string.IsNullOrWhiteSpace(register.opinion_register_repassword) || (register.opinion_register_password != register.opinion_register_repassword) || string.IsNullOrWhiteSpace(register.opinion_register_name) || string.IsNullOrWhiteSpace(register.opinion_register_surname))
             {
                 modal = "error, something went wrong please verify every information";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
@@ -125,20 +128,20 @@ namespace Soon.Controllers
             var pass = SecurityEncryption.encrypt_value(salt, register.opinion_register_password);
             var verified_value = SecurityEncryption.Token().ToString();
 
-            Application application = new Application { Phone = register.opinion_register_phone, Email = register.opinion_register_email, Password = pass, Salt = salt, VerifiedValue = verified_value, Verified = "Waiting"};
+            Application application = new Application { Phone = register.opinion_register_phone, Email = register.opinion_register_email, Password = pass, Salt = salt, VerifiedValue = verified_value, Verified = "Waiting" };
             Soon.interaction.Models.User user = new User { Username = register.opinion_register_username, Name = register.opinion_register_name, Surname = register.opinion_register_surname };
             NewApplication newApplication = new NewApplication { Application = application, User = user };
 
 
             //register this users and application
             bool flag = _app.new_application(newApplication);
-            if(flag)
+            if (flag)
             {
 
                 //message to be sent to the email
                 var email_message = "<br/><img src='https://cdn.onlinewebfonts.com/svg/img_508672.png' height='30' width='30' class='rounded' style='display: inline-block;'/> <span style='font-weight:bold;font-size:1.5em;'>Message from email</span><br/><br/>";
                 email_message += "<br/>Verification Code: " + application.VerifiedValue;
-                email_message += "<br/><br/><i>Please enter this code to be verified in the system</i>" ;
+                email_message += "<br/><br/><i>Please enter this code to be verified in the system</i>";
 
 
                 //construct mailmessage
@@ -178,14 +181,14 @@ namespace Soon.Controllers
 
             var modal = new Object();
 
-            if(!verification.opinion_register_verify_email.Contains("@") || string.IsNullOrWhiteSpace(verification.opinion_register_verify_email) || string.IsNullOrWhiteSpace(verification.opinion_register_verify))
+            if (!verification.opinion_register_verify_email.Contains("@") || string.IsNullOrWhiteSpace(verification.opinion_register_verify_email) || string.IsNullOrWhiteSpace(verification.opinion_register_verify))
             {
                 modal = "error, something went wrong please verify every information";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
             var application = _app.get_by_email(verification.opinion_register_verify_email);
-            if(application == null)
+            if (application == null)
             {
                 modal = "error, something went wrong please verify every information";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
@@ -193,7 +196,7 @@ namespace Soon.Controllers
 
             var ver = verification.opinion_register_verify.Trim().TrimStart().TrimEnd();
 
-            if(application.VerifiedValue.ToString() == ver.ToString())
+            if (application.VerifiedValue.ToString() == ver.ToString())
             {
 
                 //get user information
@@ -229,6 +232,45 @@ namespace Soon.Controllers
             modal = "error, something went wrong";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
         }
+
+
+        [Route("article")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult new_article(Article article)
+        {
+            var modal = new Object();
+            if (string.IsNullOrWhiteSpace(article.opinion_title) || string.IsNullOrWhiteSpace(article.opinion_type_article) || article.opinion_image.ContentLength == 0)
+            {
+                modal = "error, something went wrong with your inputs we could not process this further";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            var session = (UserSession)Session["userSession"];
+            if (session == null)
+            {
+                modal = "login, Please login and post";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+
+            Articles articles = new Articles { ArticleTitle = article.opinion_title, Body = article.opinion_type_article, UserId = session.UserId };
+            articles.ImimeType = article.opinion_image.ContentType;
+            articles.Image = new byte[article.opinion_image.ContentLength];
+            article.opinion_image.InputStream.Read(articles.Image, 0, article.opinion_image.ContentLength);
+
+            //send article
+            bool flag = _art.new_article(articles);
+            if (flag)
+            {
+                modal = Url.Action("opinions", "soon");
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            modal = "error, something went wrong could be processed further";
+            return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+        }
+
+
 
 
     }

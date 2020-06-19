@@ -115,11 +115,11 @@ namespace Soon.interaction.Abstracts.Concrete
                             _soon.Database.Connection.Open();
 
                         _soon.Article.Add(article);
+                        _soon.SaveChanges();
                         var id = article.ArticlesId;
                         if (id == null || id == Guid.Empty)
                             return (flag = false);
-
-                        _soon.SaveChanges();
+                        
                         _transaction.Commit();
                         flag = true;
 

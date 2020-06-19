@@ -26,7 +26,7 @@
 
     <!--error modal-->
     <div class="modal fade" id="opinion_article_error_modal" tabindex="-1" role="dialog" aria-labelledby="opinion_article_error_modal_title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title" id="opinion_article_error_modal_title">
@@ -49,7 +49,7 @@
 
     <!--opinion modal-->
     <div class="modal fade" id="opinion_article_modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="opinion_article_modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content justify-content-center" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title text-center" id="opinion_article_modal-title">
@@ -64,12 +64,21 @@
                                     <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
                                         <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> Add title
                                     </div>
+
+                                    <!--title and minutes-->
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-9">
                                             <div class="form-group text-justify">
-                                                <label for="opinion_title" class="col-form-label">Add title</label>
+                                               
                                                 <input type="text" class="form-control opinion_text" placeholder="add article title" name="opinion_title" id="opinion_title" aria-labelledby="opinion_title_help" />
                                                 <small id="opinion_title_help" class="form-text text-muted">Add title associated with the  title</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group text-justify">
+                                                
+                                                <input type="text" class="form-control opinion_text" placeholder="read minutes" name="opinion_minutes" id="opinion_minutes" aria-labelledby="opinion_minutes_help" />
+                                                <small id="opinion_minutes_help" class="form-text text-muted">Expected Read minutes for this article</small>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +194,7 @@
 
     <!--register new user modal-->
     <div class="modal fade" id="opinion-register-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-register-modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title" id="opinion-register-modal-title">
@@ -290,7 +299,7 @@
 
     <!--verify and login user-->
     <div class="modal fade" id="opinion-verify-modal" tabindex="-1" role="dialog" aria-labelledby="opinion-verify-modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content" style="border-radius:unset;border:1px solid #e8e5e5;">
                 <div class="modal-header">
                     <h3 class="modal-title" id="opinion-verify-modal-title">

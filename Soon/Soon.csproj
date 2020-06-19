@@ -2233,6 +2233,7 @@
     <Compile Include="interaction\Models\NewApplication.cs" />
     <Compile Include="interaction\Models\User.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\DeveloperEmail.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Register.cs" />

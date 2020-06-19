@@ -199,6 +199,7 @@ namespace Soon.interaction.Abstracts.Concrete
                         app.DatetimeAdded = DateTime.Now;
 
                         _soon.Application.Add(app);
+                        _soon.SaveChanges();
                         var id = app.ApplicationId;
                         if (id == null || id == Guid.Empty)
                             return (flag = false);
@@ -206,12 +207,13 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         user.ApplicationId = id;
                         _soon.User.Add(user);
+                        _soon.SaveChanges();
                         var id_user = user.UserId;
                         if (id_user == null || id_user == Guid.Empty)
                             return (flag = false);
 
 
-                        _soon.SaveChanges();
+                       
                         _transaction.Commit();
                         flag = true;
 

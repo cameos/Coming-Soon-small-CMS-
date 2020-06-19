@@ -153,7 +153,7 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         _soon.Entry<User>(user).State = EntityState.Modified;
                         _soon.SaveChanges();
-                        _transaction.Rollback();
+                        _transaction.Commit();
                         flag = true;
 
 

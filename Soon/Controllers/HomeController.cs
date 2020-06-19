@@ -13,6 +13,9 @@ namespace Soon.Controllers
     [RoutePrefix("soon")]
     public class HomeController : Controller
     {
+
+        public int PageSize = 4;
+
         // GET: Home
         public ActionResult Index()
         {
@@ -38,7 +41,7 @@ namespace Soon.Controllers
         }
 
         [Route("opinions")]
-        public ActionResult opinion()
+        public ViewResult opinion()
         {
 
             //if(Request.Browser.IsMobileDevice)

@@ -145,6 +145,7 @@ $(document).ready(function () {
                         var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
+                        $("#opinion-login-modal").modal('hide');
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                     else if (modal.indexOf("register") !== -1) {
@@ -184,6 +185,7 @@ $(document).ready(function () {
                         var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
+                        $("#opinion-register-modal").modal('hide');
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                     else if (modal.indexOf("verify") !== -1) {
@@ -235,6 +237,37 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on("submit", "#add_article_form", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        var form = new FormData("#add_article_form");
+        $.ajax({
+            method: "POST",
+            url: "https://localhost:44363/articles/article",
+            dataType: "json",
+            data: form,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (modal) {
+                if (typeof modal == 'string' || modal instanceof String) {
+                    if (modal.indexOf("error") !== -1) {
+                        var target = $("#back_error");
+                        target.empty().html();
+                        target.append(modal);
+                        $("#opinion_article_modal").modal('hide');
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
+                    }
+                    else {
+                        window.location.href = "https://localhost:44363" + modal;
+                    }
+                }
+            }
+        });
+
+    });
+
 
 
 });
