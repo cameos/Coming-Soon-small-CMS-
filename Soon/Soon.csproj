@@ -2213,6 +2213,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\ArticleDisplay.cs" />
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\CustomDependency.cs" />
     <Compile Include="interaction\Abstracts\Concrete\ApplicationConcrete.cs" />
     <Compile Include="interaction\Abstracts\Concrete\ArticleConcrete.cs" />
@@ -2234,8 +2236,10 @@
     <Compile Include="interaction\Models\User.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleListViewModel.cs" />
     <Compile Include="Models\DeveloperEmail.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\SecurityEncryption.cs" />
     <Compile Include="Models\UserSession.cs" />
@@ -2269,6 +2273,7 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide\skin.min.css.map" />
     <Content Include="Scripts\tinymce\skins\ui\oxide\skin.mobile.min.css.map" />
     <Content Include="Views\Thought\new_article.cshtml" />
+    <Content Include="Views\Thought\read_article.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

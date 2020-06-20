@@ -102,12 +102,26 @@ namespace Soon.Controllers
 
             UserConcrete concrete = new UserConcrete();
             var user = concrete.get_by_application(application.ApplicationId);
-            UserSession userSession = new UserSession { ApplicationId = application.ApplicationId, UserId = user.UserId, Username = user.Username };
-            Session["userSession"] = userSession;
-            FormsAuthentication.SetAuthCookie(application.Email, true);
+            if (user == null)
+            {
+                modal = "register and share opiniated articles";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
 
-            modal = "add new article";
+            var pass = SecurityEncryption.encrypt_value(application.Salt, login.opinion_login_password);
+            if (pass == application.Password)
+            {
+                UserSession userSession = new UserSession { ApplicationId = application.ApplicationId, UserId = user.UserId, Username = user.Username };
+                Session["userSession"] = userSession;
+                FormsAuthentication.SetAuthCookie(application.Email, true);
+
+                modal = "add new article";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            modal = "error, something went wrong and could not be processed further";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+
         }
 
 
@@ -258,6 +272,7 @@ namespace Soon.Controllers
             articles.Image = new byte[article.opinion_image.ContentLength];
             article.opinion_image.InputStream.Read(articles.Image, 0, article.opinion_image.ContentLength);
 
+
             //send article
             bool flag = _art.new_article(articles);
             if (flag)
@@ -271,6 +286,34 @@ namespace Soon.Controllers
         }
 
 
+        [Route("file")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public FileContentResult get_image(Guid imageId)
+        {
+            //get content from the web service
+            List<Articles> articles = new List<Articles>();
+            
+
+            var article = articles.FirstOrDefault(x => x.ArticlesId == imageId);
+
+            if (article != null)
+            {
+                return File(article.Image, article.ImimeType);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
+
+        [Route("read")]
+        public ActionResult read_article()
+        {
+            return View();
+        }
 
 
     }

@@ -1,4 +1,4 @@
-﻿
+﻿@model Soon.Models.ArticleListViewModel
 @{
     Layout = null;
 }
@@ -42,7 +42,7 @@
                             <button type="button" class="btn btn-warning opinion_add_box_btn" id="error_cancel">Cancel everything</button>
                         </div>
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
@@ -69,14 +69,14 @@
                                     <div class="row">
                                         <div class="col-sm-9">
                                             <div class="form-group text-justify">
-                                               
+
                                                 <input type="text" class="form-control opinion_text" placeholder="add article title" name="opinion_title" id="opinion_title" aria-labelledby="opinion_title_help" />
                                                 <small id="opinion_title_help" class="form-text text-muted">Add title associated with the  title</small>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group text-justify">
-                                                
+
                                                 <input type="text" class="form-control opinion_text" placeholder="read minutes" name="opinion_minutes" id="opinion_minutes" aria-labelledby="opinion_minutes_help" />
                                                 <small id="opinion_minutes_help" class="form-text text-muted">Expected Read minutes for this article</small>
                                             </div>
@@ -122,15 +122,9 @@
                                 </div>
                             </form>
                         </div>
-
-
-
-
                     </div>
                 </div>
-                @*<div class="modal-footer">
-                        @Html.ActionLink("Home", "Home", "Index", new { @class = "btn btn-primary" })
-                    </div>*@
+
             </div>
         </div>
     </div>
@@ -366,7 +360,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="opinion_add_box">
             <form id="add_article" name="add_article" enctype="multipart/form-data" style="display:inline-block;">
@@ -388,8 +382,50 @@
                         <a href="#" style="display:inline-block;cursor:pointer;"><i style="font-size: 1em; color: #ff006e; margin:5%;" class="fas fa-bars"></i></a>
                         <div class="opinion_line2"></div>
 
-                        <!--content will go here-->
 
+
+                        <!--content will go here-->
+                        <div class="row justify-content-center">
+                            @foreach (var p in Model.Articles)
+                            {
+                                <div style="border:0; border:1px solid #d5d5d5; background-color:#fff; padding:0;margin:1%; text-overflow:ellipsis;" class="col-sm-3 text-center">
+                                    <div class="article_container_news">
+                                        <div class="article_container_image">
+                                            @if (p.Image != null)
+                                            {
+                                                var img = Convert.ToBase64String(p.Image);
+                                                <img class="article-image" src="data:image/@p.ImimeType;base64,@img" />
+                                            }
+                                        </div>
+                                        <div class="article_container_content">
+                                            @*<div class="span-article">category</div>*@
+                                            <div style="color:#306ffd; font-weight:bold;" class="text-center">
+                                                @Html.Raw(p.ArticleTitle)
+                                            </div>
+                                            <div style="color:#306ffd; font-weight:bold;" class="text-center">
+                                                @Html.Raw("Read time:"+p.ReadTime)
+                                            </div>
+                                            <div style="text-overflow:ellipsis;" class="text-center" >
+                                                @Html.display_body(p.Body)
+                                            </div>
+                                            <div class="text-center">
+                                                @using (Html.BeginForm("read", "news", new { Area = "radio" }, FormMethod.Post))
+                                                {
+                                                    @Html.Hidden("hidden_article", p.ArticleTitle);
+                                                    <input type="submit" class="btn btn-warning radio-login-btn" value="Read Article" />
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                       
+
+                        <div>
+                            @Html.PageLinks(Model.PagingInfo, x => Url.Action("opinions", "soon", new { page = x }))
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">

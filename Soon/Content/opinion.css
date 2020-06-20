@@ -143,3 +143,22 @@ html, body {
     display:block;
     visibility:visible;
 }
+.article-image {
+    height: 250px;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* remove extra space below image */
+}
+.article_container_content {
+    padding: 5%;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+.article_container_image {
+    height: 250px;
+    height: 250px;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}

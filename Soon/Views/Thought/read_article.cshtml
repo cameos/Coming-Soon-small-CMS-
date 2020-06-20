@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title Cooming Soon</title>
+
+
+    @*<link href="~/Scripts/tinymce/skins/content/default/content.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Scripts/tinymce/skins/ui/oxide/skin.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/tinymce/skins/ui/oxide/content.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Content/opinion.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+</head>
+<body>
+    <div class="opinion_top">Add thought article below</div>
+
+    <div class="page-wrap" style="padding:5%;">
+        @*<div class="opinion_line"></div>*@
+        <div class="opinion_add_box">
+            @Html.ActionLink("opinion page", "opinions", "soon", null, new { @class = "btn btn-primary opinion_add_box_btn", @id = "add_article" })
+            <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">Go back and view new articles</div>
+        </div>
+
+
+      
+
+        <div class="push"></div>
+    </div>
+
+
+    <div class="site-footer">
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+
+    <!--tinymce-->
+    <script src="~/Scripts/tinymce/tinymce.js"></script>
+    <script src="~/Scripts/tinymce/themes/silver/theme.js"></script>
+
+    <script src="~/Scripts/main/opinion.js"></script>
+
+</body>
+</html>

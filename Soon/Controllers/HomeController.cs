@@ -7,6 +7,9 @@ using Soon.Models;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using Soon.interaction.Models;
+using Soon.interaction.Abstracts.Interfaces;
+using Soon.interaction.Abstracts.Concrete;
 
 namespace Soon.Controllers
 {
@@ -15,7 +18,20 @@ namespace Soon.Controllers
     {
 
         public int PageSize = 4;
+        private IArticle _art;
 
+
+        public HomeController(IArticle art)
+        {
+            _art = art;
+        }
+        public HomeController()
+        {
+            _art = new ArticleConcrete();
+        }
+
+
+        
         // GET: Home
         public ActionResult Index()
         {
@@ -41,15 +57,23 @@ namespace Soon.Controllers
         }
 
         [Route("opinions")]
-        public ViewResult opinion()
+        public ViewResult opinion(int page = 1)
         {
+            ArticleListViewModel model = new ArticleListViewModel
+            {
+                Articles = _art.get_all()
+                .OrderBy(a => a.DateAdded)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _art.get_all().Count()
+                }
+            };
 
-            //if(Request.Browser.IsMobileDevice)
-            //{
-            //    return View();
-            //}
-
-            return View();
+            return View(model);
         }
 
         [Route("email")]

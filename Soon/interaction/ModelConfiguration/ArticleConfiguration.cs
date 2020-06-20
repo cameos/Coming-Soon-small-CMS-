@@ -24,6 +24,7 @@ namespace Soon.interaction.ModelConfiguration
             this.Property(c => c.Image).HasColumnType("image").IsRequired();
             this.Property(c => c.ImimeType).HasColumnType("nvarchar").HasMaxLength(150).IsFixedLength().IsRequired();
             this.Property(c => c.ReadTime).HasColumnType("nvarchar").HasMaxLength(300).IsFixedLength().IsRequired();
+            this.Property(c => c.DateAdded).HasColumnType("datetime2").HasPrecision(0).IsRequired();
 
             this.HasRequired<User>(c => c.User).WithMany(c => c.Articles).HasForeignKey<Guid>(c => c.UserId).WillCascadeOnDelete(false);
            

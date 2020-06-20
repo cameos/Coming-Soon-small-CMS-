@@ -238,15 +238,31 @@ $(document).ready(function () {
         });
     });
     $(document).on("submit", "#add_article_form", function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
 
-        var form = new FormData("#add_article_form");
+        e.preventDefault();
+        tinymce.triggerSave();
+        var ed = tinymce.get('opinion_type_article');
+
+
+        var data = ed.getContent();
+        console.log("this is data:" + $("#textarea_type_article").val());
+
+
+        var opinion_type_article = encodeHTML($("#opinion_type_article").val());
+
+
+        var formData = new FormData();       
+        formData.append('opinion_title', $('#opinion_title').val());
+        formData.append('opinion_minutes', $('#opinion_minutes').val());
+        formData.append('opinion_image', $('input[type=file]')[0].files[0]);
+        formData.append('opinion_type_article', opinion_type_article);
+
+
         $.ajax({
             method: "POST",
             url: "https://localhost:44363/articles/article",
             dataType: "json",
-            data: form,
+            data: formData,
             contentType: false,
             processData: false,
             cache: false,

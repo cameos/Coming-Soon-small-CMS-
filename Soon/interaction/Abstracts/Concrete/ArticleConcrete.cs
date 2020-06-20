@@ -99,7 +99,7 @@ namespace Soon.interaction.Abstracts.Concrete
         public bool new_article(Articles article)
         {
             bool flag = false;
-            if (article.ArticlesId != null || article.ArticlesId != Guid.Empty || article == null || string.IsNullOrWhiteSpace(article.Body) || string.IsNullOrWhiteSpace(article.ArticleTitle))
+            if (article == null || string.IsNullOrWhiteSpace(article.ArticleTitle) || string.IsNullOrWhiteSpace(article.Body) || string.IsNullOrWhiteSpace(article.ArticleTitle))
                 return flag;
 
 
@@ -113,6 +113,10 @@ namespace Soon.interaction.Abstracts.Concrete
                             return flag;
                         if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
                             _soon.Database.Connection.Open();
+
+
+                        article.ReadTime = "3 Mins";
+                        article.DateAdded = DateTime.Now;
 
                         _soon.Article.Add(article);
                         _soon.SaveChanges();
