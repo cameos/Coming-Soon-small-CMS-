@@ -1,4 +1,6 @@
-﻿@{
+﻿@model  Soon.Models.ReadArticle
+
+@{
     Layout = null;
 }
 
@@ -8,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewBag.Title Cooming Soon</title>
+    <title>@ViewBag.Title Read - {@Model.Articles.ArticleTitle} </title>
 
 
     @*<link href="~/Scripts/tinymce/skins/content/default/content.min.css" rel="stylesheet" type="text/css" />*@
@@ -22,18 +24,31 @@
     <link href="~/Content/fontawesome/css/all.css" />
 </head>
 <body>
-    <div class="opinion_top">Add thought article below</div>
+    <div class="opinion_top">       
+            @Html.Raw(Model.Articles.ArticleTitle)   
+    </div>
 
     <div class="page-wrap" style="padding:5%;">
-        @*<div class="opinion_line"></div>*@
-        <div class="opinion_add_box">
-            @Html.ActionLink("opinion page", "opinions", "soon", null, new { @class = "btn btn-primary opinion_add_box_btn", @id = "add_article" })
-            <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">Go back and view new articles</div>
+        <div class="container">
+
+            
+            <div class="text-left" style="padding:2%;">
+                <span style="display:inline-block;" class="text-muted">By </span>  <span style="display:inline-block; border-right:2px solid #808080; font-weight:bold; padding-right:1%;"> @{ @Html.Raw(Model.User.Name) @Html.Raw(Model.User.Surname) }</span> <span style="display:inline-block;" class="text-muted"> @Html.Raw(Model.Articles.DateAdded.ToString()) </span> <span style="display:inline-block; color:#808080;"> &#8226; </span> <span style="display:inline-block;" class="text-muted"> @Model.Articles.ReadTime read time </span>
+            </div>
+            <div class="article_container_read_image">
+                @{
+                    var img = Convert.ToBase64String(Model.Articles.Image);
+                    <img class="article_container_read_image" src="data:image/@Model.Articles.ImimeType;base64,@img" />
+                }
+            </div>
+            <div style="padding:10%;">
+                @Html.Raw(HttpUtility.HtmlDecode(Model.Articles.Body))
+            </div>
+
+            <div class="text-left">
+                @Html.ActionLink("articles page", "opinions", "soon", null, new { @class = "btn btn-primary opinion_add_box_btn"})
+            </div>
         </div>
-
-
-      
-
         <div class="push"></div>
     </div>
 
@@ -51,6 +66,6 @@
     <script src="~/Scripts/tinymce/themes/silver/theme.js"></script>
 
     <script src="~/Scripts/main/opinion.js"></script>
-
+    <script src="~/Scripts/moment.js"></script>
 </body>
 </html>

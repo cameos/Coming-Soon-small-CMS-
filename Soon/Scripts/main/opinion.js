@@ -11,7 +11,7 @@ $(document).ready(function () {
         container: 'body',
         trigger: 'focus',
         title: 'Information',
-        content: '<div class="text-left"><a href="#" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Your articles</a></div><div class="text-left"><a href="#" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Signout</a></div>',
+        content: '<div class="text-left"><a href="#" id="sigout" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Your articles</a></div><div class="text-left"><a href="https://localhost:44363/articles/signout" id="sigot" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Sign out</a></div>',
         html: true,
         delay: { show: 0, hide: 500 }
     });   
@@ -87,7 +87,44 @@ $(document).ready(function () {
         e.preventDefault();
         $("#opinion-register-modal").modal('hide');
     });
+    $(document).on("click", "#article_add_cancel", function (e) {
 
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        window.location.href = "https://localhost:44363/soon/opinions";
+
+    });
+    $(document).on("click", "#sigout", function (e) {
+        $.ajax({
+            method: "GET",
+            url: "https://localhost:44363/articles/signout",
+            cache: false,
+            success: function (modal) {
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
+                        var target = $("#back_error");
+                        target.empty().html();
+                        target.append(modal.modal);
+                        $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
+                    }
+                    else if (modal.modal.indexOf("verify") !== -1) {
+                        var target = $("#login_text_v");
+                        target.empty().html();
+                        target.append(modal.modal);
+                        $("#opinion-register-modal").modal('hide');
+                        $("#opinion-verify-modal").modal({ keyboard: false, backdrop: 'static' });
+                    } else if (modal.modal.indexOf("add") !== -1) {
+                        var target = $("#title-back-t");
+                        target.empty().html();
+                        target.append(modal.modal);
+                        $("#opinion-verify-modal").modal('hide');
+                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
+                        $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
+                    }
+                }
+            }
+        });
+    });
 
     $(document).on("submit", "#add_article", function (e) {
         e.preventDefault();
@@ -102,22 +139,25 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function (modal) {
-                if (typeof modal == 'string' || modal instanceof String) {
-                    if (modal.indexOf("error") !== -1) {
+                console.log(modal);
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
                         var target = $("#back_error");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
-                    else if (modal.indexOf("login") !== -1) {
+                    else if (modal.modal.indexOf("login") !== -1) {
+                       
                         var target = $("#login_text");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion-login-modal").modal({ keyboard: false, backdrop: 'static' });
-                    } else if (modal.indexOf("add") !== -1) {
+                    } else if (modal.modal.indexOf("add") !== -1) {
                         var target = $("#title-back-t");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
+                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
                         $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 }
@@ -140,24 +180,25 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function (modal) {
-                if (typeof modal == 'string' || modal instanceof String) {
-                    if (modal.indexOf("error") !== -1) {
+                console.log("this is modal" + modal);
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
                         var target = $("#back_error");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion-login-modal").modal('hide');
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
-                    else if (modal.indexOf("register") !== -1) {
+                    else if (modal.modal.indexOf("register") !== -1) {
                         var target = $("#login_text_r");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion-login-modal").modal('hide');
                         $("#opinion-register-modal").modal({ keyboard: false, backdrop: 'static' });
-                    } else if (modal.indexOf("add") !== -1) {
+                    } else if (modal.modal.indexOf("add") !== -1) {
                         var target = $("#title-back-t");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion-login-modal").modal('hide');
                         $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
                         $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
@@ -180,15 +221,15 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function (modal) {
-                if (typeof modal == 'string' || modal instanceof String) {
-                    if (modal.indexOf("error") !== -1) {
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
                         var target = $("#back_error");
                         target.empty().html();
                         target.append(modal);
                         $("#opinion-register-modal").modal('hide');
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
-                    else if (modal.indexOf("verify") !== -1) {
+                    else if (modal.modal.indexOf("verify") !== -1) {
                         var target = $("#login_text_v");
                         target.empty().html();
                         target.append(modal);
@@ -212,25 +253,25 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function (modal) {
-                if (typeof modal == 'string' || modal instanceof String) {
-                    if (modal.indexOf("error") !== -1) {
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
                         var target = $("#back_error");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
-                    else if (modal.indexOf("verify") !== -1) {
+                    else if (modal.modal.indexOf("verify") !== -1) {
                         var target = $("#login_text_v");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion-register-modal").modal('hide');
                         $("#opinion-verify-modal").modal({ keyboard: false, backdrop: 'static' });
-                    } else if (modal.indexOf("add") !== -1) {
+                    } else if (modal.modal.indexOf("add") !== -1) {
                         var target = $("#title-back-t");
                         target.empty().html();
-                        target.append(modal);
-                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
+                        target.append(modal.modal);
                         $("#opinion-verify-modal").modal('hide');
+                        $("#user_block").removeClass("user_block_hidden").addClass("user_block_show");
                         $("#opinion_article_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                 } 
@@ -267,23 +308,21 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function (modal) {
-                if (typeof modal == 'string' || modal instanceof String) {
-                    if (modal.indexOf("error") !== -1) {
+                if (typeof modal.modal == 'string' || modal.modal instanceof String) {
+                    if (modal.modal.indexOf("error") !== -1) {
                         var target = $("#back_error");
                         target.empty().html();
-                        target.append(modal);
+                        target.append(modal.modal);
                         $("#opinion_article_modal").modal('hide');
                         $("#opinion_article_error_modal").modal({ keyboard: false, backdrop: 'static' });
                     }
                     else {
-                        window.location.href = "https://localhost:44363" + modal;
+                        window.location.href = "https://localhost:44363" + modal.modal;
                     }
                 }
             }
         });
 
     });
-
-
 
 });

@@ -43,10 +43,11 @@ namespace Soon.Controllers
         [HttpPost]
         public ActionResult new_article(string pop_modal)
         {
-            var modal = new object();
+            AuthAccess modal = new AuthAccess();
             if (string.IsNullOrWhiteSpace(pop_modal) || pop_modal != "modal")
             {
-                modal = "error, something went wrong please try again";
+                modal.modal = "error, something went wrong please try again";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -56,7 +57,8 @@ namespace Soon.Controllers
             if (session == null)
             {
 
-                modal = "login, Please login";
+                modal.modal = "login, Please login";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -65,7 +67,8 @@ namespace Soon.Controllers
             {
                 if (session.UserId == null || session.UserId == Guid.Empty)
                 {
-                    modal = "login, Please login";
+                    modal.modal = "login, Please login";
+                    modal.available = "none";
                     return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
                 }
             }
@@ -73,7 +76,8 @@ namespace Soon.Controllers
 
 
 
-            modal = "add new article";
+            modal.modal = "add new article";
+            modal.available = "none";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
         }
 
@@ -83,19 +87,22 @@ namespace Soon.Controllers
         public ActionResult login_article(Login login)
         {
 
-            var modal = new Object();
+            AuthAccess modal = new AuthAccess();
 
             if (string.IsNullOrWhiteSpace(login.opinion_login_email) || !login.opinion_login_email.Contains("@") || string.IsNullOrWhiteSpace(login.opinion_login_password))
             {
-                modal = "error, something went wrong add all information";
+                modal.modal = "error, something went wrong add all information";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
+
 
             //Application application = new Application();
             var application = _app.get_by_email(login.opinion_login_email);
             if (application == null)
             {
-                modal = "register and share opiniated articles";
+                modal.modal = "register and share opiniated articles";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -104,7 +111,8 @@ namespace Soon.Controllers
             var user = concrete.get_by_application(application.ApplicationId);
             if (user == null)
             {
-                modal = "register and share opiniated articles";
+                modal.modal = "register and share opiniated articles";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -115,11 +123,13 @@ namespace Soon.Controllers
                 Session["userSession"] = userSession;
                 FormsAuthentication.SetAuthCookie(application.Email, true);
 
-                modal = "add new article";
+                modal.modal = "add new article";
+                modal.available = "yes";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
-            modal = "error, something went wrong and could not be processed further";
+            modal.modal = "error, something went wrong and could not be processed further";
+            modal.available = "none";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
 
         }
@@ -129,11 +139,12 @@ namespace Soon.Controllers
         [HttpPost]
         public ActionResult register_article(Register register)
         {
-            var modal = new Object();
+            AuthAccess modal = new AuthAccess();
 
             if (string.IsNullOrWhiteSpace(register.opinion_register_username) || string.IsNullOrWhiteSpace(register.opinion_register_email) || !register.opinion_register_email.Contains("@") || string.IsNullOrWhiteSpace(register.opinion_register_password) || string.IsNullOrWhiteSpace(register.opinion_register_repassword) || (register.opinion_register_password != register.opinion_register_repassword) || string.IsNullOrWhiteSpace(register.opinion_register_name) || string.IsNullOrWhiteSpace(register.opinion_register_surname))
             {
-                modal = "error, something went wrong please verify every information";
+                modal.modal= "error, something went wrong please verify every information";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -153,7 +164,7 @@ namespace Soon.Controllers
             {
 
                 //message to be sent to the email
-                var email_message = "<br/><img src='https://cdn.onlinewebfonts.com/svg/img_508672.png' height='30' width='30' class='rounded' style='display: inline-block;'/> <span style='font-weight:bold;font-size:1.5em;'>Message from email</span><br/><br/>";
+                var email_message = "<br/><img src='https://cdn.onlinewebfonts.com/svg/img_508672.png' height='30' width='30' class='rounded' style='display: inline-block;'/> <span style='font-weight:bold;font-size:1.5em;'>Message from (Software Architect)</span><br/><br/>";
                 email_message += "<br/>Verification Code: " + application.VerifiedValue;
                 email_message += "<br/><br/><i>Please enter this code to be verified in the system</i>";
 
@@ -178,13 +189,15 @@ namespace Soon.Controllers
                 client.Send(message);
 
 
-                modal = "verify, enter verification sent to your email";
+                modal.modal = "verify, enter verification sent to your email";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
 
 
-            modal = "error, something went wrong please verify every information";
+            modal.modal = "error, something went wrong please verify every information";
+            modal.available = "none";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
         }
 
@@ -193,18 +206,20 @@ namespace Soon.Controllers
         public ActionResult verify(Verification verification)
         {
 
-            var modal = new Object();
+            AuthAccess modal = new AuthAccess();
 
             if (!verification.opinion_register_verify_email.Contains("@") || string.IsNullOrWhiteSpace(verification.opinion_register_verify_email) || string.IsNullOrWhiteSpace(verification.opinion_register_verify))
             {
-                modal = "error, something went wrong please verify every information";
+                modal.modal = "error, something went wrong please verify every information";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
             var application = _app.get_by_email(verification.opinion_register_verify_email);
             if (application == null)
             {
-                modal = "error, something went wrong please verify every information";
+                modal.modal = "error, something went wrong please enter valid email";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -218,7 +233,8 @@ namespace Soon.Controllers
                 var user = concrete.get_by_application(application.ApplicationId);
                 if (user == null)
                 {
-                    modal = "error, we could not find this user information";
+                    modal.modal = "error, we could not find this user information";
+                    modal.available = "none";
                     return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
                 }
                 else
@@ -231,19 +247,22 @@ namespace Soon.Controllers
                         UserSession userSession = new UserSession { ApplicationId = application.ApplicationId, UserId = user.UserId, Username = user.Username };
                         Session["userSession"] = userSession;
                         FormsAuthentication.SetAuthCookie(application.Email, true);
-                        modal = "add new article";
+                        modal.modal = "add new article";
+                        modal.available = "yes";
                         return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
                     }
                     else
                     {
-                        modal = "error, we could not verify this information";
+                        modal.modal = "error, we could not verify this information";
+                        modal.available = "none";
                         return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
                     }
 
                 }
 
             }
-            modal = "error, something went wrong";
+            modal.modal = "error, something went wrong";
+            modal.available = "none";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
         }
 
@@ -252,20 +271,23 @@ namespace Soon.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult new_article(Article article)
         {
-            var modal = new Object();
-            if (string.IsNullOrWhiteSpace(article.opinion_title) || string.IsNullOrWhiteSpace(article.opinion_type_article) || article.opinion_image.ContentLength == 0)
-            {
-                modal = "error, something went wrong with your inputs we could not process this further";
-                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
-            }
+            AuthAccess modal = new AuthAccess();
 
             var session = (UserSession)Session["userSession"];
             if (session == null)
             {
-                modal = "login, Please login and post";
+                modal.modal = "login, Please login and post";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
+
+            if (string.IsNullOrWhiteSpace(article.opinion_title) || string.IsNullOrWhiteSpace(article.opinion_type_article) || article.opinion_image.ContentLength == 0)
+            {
+                modal.modal = "error, something went wrong with your inputs we could not process this further";
+                modal.available = "yes";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
 
             Articles articles = new Articles { ArticleTitle = article.opinion_title, Body = article.opinion_type_article, UserId = session.UserId };
             articles.ImimeType = article.opinion_image.ContentType;
@@ -277,11 +299,13 @@ namespace Soon.Controllers
             bool flag = _art.new_article(articles);
             if (flag)
             {
-                modal = Url.Action("opinions", "soon");
+                modal.modal = Url.Action("opinions", "soon");
+                modal.available = "yes";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
-            modal = "error, something went wrong could be processed further";
+            modal.modal = "error, something went wrong could be processed further";
+            modal.available = "yes";
             return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
         }
 
@@ -308,13 +332,50 @@ namespace Soon.Controllers
         }
 
 
-
         [Route("read")]
-        public ActionResult read_article()
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult read_article(Guid articleId)
         {
-            return View();
+
+            
+            ReadArticle read = new ReadArticle();
+
+            var modal = new Object();
+            if(articleId == null || articleId == Guid.Empty)
+            {
+                modal = "error, something went wrong please verify every information";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+
+            read.Articles = _art.get_one(articleId);
+            if(read.Articles == null)
+            {
+                modal = "error, we could not get this article";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+
+            UserConcrete userConcrete = new UserConcrete();
+            read.User = userConcrete.get_one(read.Articles.UserId);
+            if(read.User == null)
+            {
+                modal = "error, we could not get user who wrote this article";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            return View(read);
         }
 
+
+        [Route("signout")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult signout()
+        {
+            FormsAuthentication.SignOut();
+            Session["userSession"] = null;
+            return RedirectToActionPermanent("opinions", "soon");
+        }
 
     }
 }

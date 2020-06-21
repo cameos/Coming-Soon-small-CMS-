@@ -2237,9 +2237,11 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleListViewModel.cs" />
+    <Compile Include="Models\AuthAccess.cs" />
     <Compile Include="Models\DeveloperEmail.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\ReadArticle.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\SecurityEncryption.cs" />
     <Compile Include="Models\UserSession.cs" />

@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
                                     <input type="submit" onclick="tinyMCE.triggerSave(true,true);" value="publish this article" class="btn btn-primary opinion_add_box_btn_r" />
-                                    <input type="reset" value="Cancel everything" class="btn btn-warning opinion_add_box_btn" />
+                                    <input type="reset" value="Cancel everything" id="article_add_cancel" class="btn btn-warning opinion_add_box_btn" />
                                 </div>
                             </form>
                         </div>
@@ -351,6 +351,34 @@
     <div class="page-wrap" style="padding:5%;">
         <div class="opinion_line"></div>
 
+
+        @{var session = (Soon.Models.UserSession)Session["userSession"];
+            if (session == null)
+            {
+                <div class="user_block_hidden" id="user_block">
+                    <div class="row" style="margin-top:2%;">
+                        <div class="col-12">
+                            <div class="clearfix">
+                                <div class="float-right"><a href="#" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="user_block_show" id="user_block">
+                    <div class="row" style="margin-top:2%;">
+                        <div class="col-12">
+                            <div class="clearfix">
+                                <div class="float-right"><a href="#" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
         <div class="user_block_hidden" id="user_block">
             <div class="row" style="margin-top:2%;">
                 <div class="col-12">
@@ -369,7 +397,7 @@
             </form>
             @*@Html.ActionLink("Add new article", "new", "articles", null, new { @class = "btn btn-primary opinion_add_box_btn", @id = "add_article" })*@
             @*<button class="btn btn-primary opinion_add_box_btn" id="add_article" style="display:inline-block;">Add new article</button>
-                <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">you can new article to share thought at the click of the button, so why not try now and see what happens?</div>*@
+            <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">you can new article to share thought at the click of the button, so why not try now and see what happens?</div>*@
         </div>
 
         <div class="container" style="margin-top:5%;">
@@ -385,10 +413,10 @@
 
 
                         <!--content will go here-->
-                        <div class="row justify-content-center">
+                        <div class="row">
                             @foreach (var p in Model.Articles)
                             {
-                                <div style="border:0; border:1px solid #d5d5d5; background-color:#fff; padding:0;margin:1%; text-overflow:ellipsis;" class="col-sm-3 text-center">
+                                <div style="border:0; border:1px solid #d5d5d5; background-color:#fff; padding:0;margin:1%; text-overflow:ellipsis;" class="col-3 text-center">
                                     <div class="article_container_news">
                                         <div class="article_container_image">
                                             @if (p.Image != null)
@@ -403,16 +431,16 @@
                                                 @Html.Raw(p.ArticleTitle)
                                             </div>
                                             <div style="color:#306ffd; font-weight:bold;" class="text-center">
-                                                @Html.Raw("Read time:"+p.ReadTime)
+                                                @Html.Raw("Read time:" + p.ReadTime)
                                             </div>
-                                            <div style="text-overflow:ellipsis;" class="text-center" >
+                                            <div style="text-overflow:ellipsis;" class="text-center">
                                                 @Html.display_body(p.Body)
                                             </div>
                                             <div class="text-center">
-                                                @using (Html.BeginForm("read", "news", new { Area = "radio" }, FormMethod.Post))
+                                                @using (Html.BeginForm("read", "articles", FormMethod.Post))
                                                 {
-                                                    @Html.Hidden("hidden_article", p.ArticleTitle);
-                                                    <input type="submit" class="btn btn-warning radio-login-btn" value="Read Article" />
+                                                    @Html.Hidden("articleId", p.ArticlesId);
+                                                    <input type="submit" class="btn btn-warning opinion_add_box_btn_r" value="Read Article" />
                                                 }
 
                                             </div>
@@ -421,9 +449,9 @@
                                 </div>
                             }
                         </div>
-                       
 
-                        <div>
+
+                        <div class="text-center">
                             @Html.PageLinks(Model.PagingInfo, x => Url.Action("opinions", "soon", new { page = x }))
                         </div>
                     </div>

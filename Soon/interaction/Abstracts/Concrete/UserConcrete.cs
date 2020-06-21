@@ -99,7 +99,7 @@ namespace Soon.interaction.Abstracts.Concrete
         {
             User user = new User();
             if (id == null || id == Guid.Empty)
-                return (user = null);
+                return user;
             using (_soon = new SoonContext())
             {
                 using (var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
@@ -112,11 +112,11 @@ namespace Soon.interaction.Abstracts.Concrete
                             _soon.Database.Connection.Open();
 
                         user = (from a in _soon.User
-                               where (a.UserId == id)
-                               select a).SingleOrDefault<User>();
+                                where (a.UserId == id)
+                                select a).FirstOrDefault<User>();
 
-                        if (user.UserId == null || user.UserId == Guid.Empty)
-                            return (user = null);
+                        if (user == null)
+                            return user;
                         else
                         {
                             _soon.SaveChanges();

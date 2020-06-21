@@ -17,7 +17,7 @@ namespace Soon.Controllers
     public class HomeController : Controller
     {
 
-        public int PageSize = 4;
+        public int PageSize = 6;
         private IArticle _art;
 
 
@@ -59,6 +59,8 @@ namespace Soon.Controllers
         [Route("opinions")]
         public ViewResult opinion(int page = 1)
         {
+
+            
             ArticleListViewModel model = new ArticleListViewModel
             {
                 Articles = _art.get_all()

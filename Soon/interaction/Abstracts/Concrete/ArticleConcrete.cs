@@ -61,7 +61,7 @@ namespace Soon.interaction.Abstracts.Concrete
         {
             Articles article = new Articles();
             if (id == null || id == Guid.Empty)
-                return (article = null);
+                return article;
             using (_soon = new SoonContext())
             {
                 using (var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
@@ -75,10 +75,10 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         article = (from a in _soon.Article
                                 where (a.ArticlesId == id)
-                                select a).SingleOrDefault<Articles>();
+                                select a).FirstOrDefault<Articles>();
 
-                        if (article.ArticlesId == null || article.ArticlesId == Guid.Empty)
-                            return (article = null);
+                        if (article == null)
+                            return article;
                         else
                         {
                             _soon.SaveChanges();
