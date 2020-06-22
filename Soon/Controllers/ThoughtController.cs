@@ -289,7 +289,19 @@ namespace Soon.Controllers
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
+           
+
             Articles articles = new Articles { ArticleTitle = article.opinion_title, Body = article.opinion_type_article, UserId = session.UserId };
+            if (string.IsNullOrWhiteSpace(article.opinion_minutes))
+            {
+                articles.ReadTime = "3 Mins";
+            }
+            else
+            {
+                articles.ReadTime = article.opinion_minutes+" Mins";
+            }
+
+
             articles.ImimeType = article.opinion_image.ContentType;
             articles.Image = new byte[article.opinion_image.ContentLength];
             article.opinion_image.InputStream.Read(articles.Image, 0, article.opinion_image.ContentLength);
@@ -441,25 +453,21 @@ namespace Soon.Controllers
 
         [Route("update")]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult update_article(Guid articleId)
+        public ActionResult update_article(Guid articleUpdate)
         {
             ReadArticle read = new ReadArticle();
 
             AuthAccess modal = new AuthAccess();
-            if (articleId == null || articleId == Guid.Empty)
+            if (articleUpdate == null || articleUpdate == Guid.Empty)
             {
-                modal.modal = "error, something went wrong please verify every information";
-                modal.available = "none";
-                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+                return View("user_error_page");
             }
 
 
-            read.Articles = _art.get_one(articleId);
+            read.Articles = _art.get_one(articleUpdate);
             if (read.Articles == null)
             {
-                modal.modal = "error, we could not get this article";
-                modal.available = "none";
-                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+                return View("user_error_page");
             }
 
 
@@ -467,9 +475,7 @@ namespace Soon.Controllers
             read.User = userConcrete.get_one(read.Articles.UserId);
             if (read.User == null)
             {
-                modal.modal = "error, we could not get user who wrote this article";
-                modal.available = "none";
-                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+                return View("user_error_page");
             }
 
             return View(read);
@@ -479,7 +485,56 @@ namespace Soon.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult modify_article(UpdateArticle article)
         {
-            return View();
+            AuthAccess modal = new AuthAccess();
+
+            if (string.IsNullOrWhiteSpace(article.update_opinion_type_article) || string.IsNullOrWhiteSpace(article.hidden_update_article))
+            {
+                modal.modal = "error, something went wrong with your inputs we could not process this further";
+                modal.available = "yes";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            Guid id = Guid.Parse(article.hidden_update_article);
+            Articles articles = _art.get_one(id);
+            if (articles == null)
+            {
+                modal.modal = "error, we could not get this article";
+                modal.available = "none";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            if (!string.IsNullOrWhiteSpace(article.update_opinion_title))
+            {
+                articles.ArticleTitle = article.update_opinion_title;
+            }
+            if (!string.IsNullOrWhiteSpace(article.update_opinion_minutes))
+            {
+                articles.ReadTime = article.update_opinion_minutes;
+            }
+            if (!string.IsNullOrWhiteSpace(article.update_opinion_type_article))
+            {
+                articles.Body = article.update_opinion_type_article;
+            }
+            if(article.update_opinion_image != null)
+            {
+                articles.ImimeType = article.update_opinion_image.ContentType;
+                articles.Image = new byte[article.update_opinion_image.ContentLength];
+                article.update_opinion_image.InputStream.Read(articles.Image, 0, article.update_opinion_image.ContentLength);
+            }
+
+            //send article
+            bool flag = _art.update_article(articles);
+            if (flag)
+            {
+                modal.modal = Url.Action("all", "articles");
+                modal.available = "yes";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            modal.modal = "error, something went wrong could be processed further";
+            modal.available = "yes";
+            return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+
         }
 
 

@@ -193,8 +193,7 @@ namespace Soon.interaction.Abstracts.Concrete
                         if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
                             _soon.Database.Connection.Open();
 
-
-                        article.ReadTime = "3 Mins";
+                        
                         article.DateAdded = DateTime.Now;
 
                         _soon.Article.Add(article);
@@ -236,7 +235,7 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         _soon.Entry<Articles>(article).State = EntityState.Modified;
                         _soon.SaveChanges();
-                        _transaction.Rollback();
+                        _transaction.Commit();
                         flag = true;
 
 

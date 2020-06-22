@@ -122,9 +122,9 @@
 
                                             </div>
                                             <div class="text-left" style="display:inline-block;">
-                                                @using (Html.BeginForm("read", "articles", FormMethod.Post))
+                                                @using (Html.BeginForm("update", "articles", FormMethod.Post))
                                                 {
-                                                    @Html.Hidden("articleId", p.ArticlesId);
+                                                    @Html.Hidden("articleUpdate", p.ArticlesId);
                                                     <input type="submit" class="btn btn-warning opinion_add_box_btn_r" value="update" style="font-weight:normal; padding:10%; border-radius:2px;" />
                                                 }
 
