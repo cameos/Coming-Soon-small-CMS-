@@ -21,7 +21,7 @@ namespace Soon.Controllers
     [RoutePrefix("articles")]
     public class ThoughtController : Controller
     {
-
+        public int PageSize = 3;
         private IApplication _app;
         private IArticle _art;
 
@@ -340,10 +340,11 @@ namespace Soon.Controllers
             
             ReadArticle read = new ReadArticle();
 
-            var modal = new Object();
+            AuthAccess modal = new AuthAccess();
             if(articleId == null || articleId == Guid.Empty)
             {
-                modal = "error, something went wrong please verify every information";
+                modal.modal = "error, something went wrong please verify every information";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -351,7 +352,8 @@ namespace Soon.Controllers
             read.Articles = _art.get_one(articleId);
             if(read.Articles == null)
             {
-                modal = "error, we could not get this article";
+                modal.modal = "error, we could not get this article";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -360,7 +362,8 @@ namespace Soon.Controllers
             read.User = userConcrete.get_one(read.Articles.UserId);
             if(read.User == null)
             {
-                modal = "error, we could not get user who wrote this article";
+                modal.modal = "error, we could not get user who wrote this article";
+                modal.available = "none";
                 return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
             }
 
@@ -372,10 +375,113 @@ namespace Soon.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult signout()
         {
-            FormsAuthentication.SignOut();
-            Session["userSession"] = null;
+            Session.Clear();
+            FormsAuthentication.SignOut();         
             return RedirectToActionPermanent("opinions", "soon");
         }
+
+        [Route("all")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult all_user_articles(int page = 1)
+        {
+
+            AuthAccess modal = new AuthAccess();
+
+
+            var session = (UserSession)Session["userSession"];
+            if (session == null || Session.Count == 0)
+            {
+                modal.modal = "login, Please login and post";
+                modal.available = "none";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            Guid id = session.UserId;
+            ArticleListViewModel model = new ArticleListViewModel
+            {
+                Articles = _art.get_by_user_id(id)
+                .OrderBy(a => a.ArticlesId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _art.get_all().Count()
+                }
+            };
+
+            return View(model);
+        }
+
+        [Route("delete")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult delete_article(Guid articleDelete)
+        {
+            
+            if(articleDelete == null || articleDelete == Guid.Empty)
+            {
+                return View("user_error_page");
+            }
+
+
+
+            bool flag = _art.delete_article(articleDelete);
+            if (flag)
+            {
+                return RedirectToAction("all", "articles");
+            }
+            else
+            {
+                return View("user_error_page");
+            }          
+
+        }
+
+
+        [Route("update")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult update_article(Guid articleId)
+        {
+            ReadArticle read = new ReadArticle();
+
+            AuthAccess modal = new AuthAccess();
+            if (articleId == null || articleId == Guid.Empty)
+            {
+                modal.modal = "error, something went wrong please verify every information";
+                modal.available = "none";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+
+            read.Articles = _art.get_one(articleId);
+            if (read.Articles == null)
+            {
+                modal.modal = "error, we could not get this article";
+                modal.available = "none";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+
+            UserConcrete userConcrete = new UserConcrete();
+            read.User = userConcrete.get_one(read.Articles.UserId);
+            if (read.User == null)
+            {
+                modal.modal = "error, we could not get user who wrote this article";
+                modal.available = "none";
+                return Json(modal, "application/json; charset=utf-8", Encoding.UTF8, JsonRequestBehavior.DenyGet);
+            }
+
+            return View(read);
+        }
+
+        [Route("modify")]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult modify_article(UpdateArticle article)
+        {
+            return View();
+        }
+
 
     }
 }

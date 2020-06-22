@@ -16,9 +16,48 @@ namespace Soon.interaction.Abstracts.Concrete
 
         private SoonContext _soon;
 
-        public bool delete_article()
+        public bool delete_article(Guid id)
         {
-            throw new NotImplementedException();
+            bool flag = false;
+            if(id== null || id== Guid.Empty)
+            {
+                return flag;
+            }
+
+
+            using(_soon = new SoonContext())
+            {
+                using(var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        if (!_soon.Database.Exists())
+                            return flag;
+                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
+                            _soon.Database.Connection.Open();
+
+                        var article = (from a in _soon.Article
+                                       where (a.ArticlesId == id)
+                                       select a).FirstOrDefault<Articles>();
+                        if(article == null)
+                        {
+                            return flag;
+                        }
+
+                        _soon.Article.Remove(article);
+                        _soon.SaveChanges();
+                        _transaction.Commit();
+                        flag = true;
+
+                    }
+                    catch(Exception e)
+                    {
+                        _transaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
+            return flag;
         }
 
         public List<Articles> get_all()
@@ -37,6 +76,46 @@ namespace Soon.interaction.Abstracts.Concrete
 
                         articles = (from a in _soon.Article
                                  select a).ToList<Articles>();
+                        if (articles.Count() == 0)
+                            return articles;
+                        else
+                        {
+                            _soon.SaveChanges();
+                            _transaction.Commit();
+                        }
+
+
+                    }
+                    catch (Exception e)
+                    {
+                        _transaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
+            return articles;
+        }
+
+        public List<Articles> get_by_user_id(Guid id)
+        {
+            List<Articles> articles = new List<Articles>();
+            if (id == null || id == Guid.Empty)
+                return articles;
+
+            using (_soon = new SoonContext())
+            {
+                using (var _transaction = _soon.Database.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        if (!_soon.Database.Exists())
+                            return articles;
+                        if (_soon.Database.Connection.State == ConnectionState.Broken || _soon.Database.Connection.State == ConnectionState.Closed)
+                            _soon.Database.Connection.Open();
+
+                        articles = (from a in _soon.Article
+                                    where(a.UserId == id)
+                                    select a).ToList<Articles>();
                         if (articles.Count() == 0)
                             return articles;
                         else

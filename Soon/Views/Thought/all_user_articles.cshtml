@@ -1,0 +1,172 @@
+﻿@model Soon.Models.ArticleListViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title User articles</title>
+
+
+    @*<link href="~/Scripts/tinymce/skins/content/default/content.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Scripts/tinymce/skins/ui/oxide/skin.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/tinymce/skins/ui/oxide/content.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Content/opinion.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+</head>
+<body>
+    <div class="opinion_top">List of your articles</div>
+
+    <div class="page-wrap" style="padding:5%;">
+        <div class="opinion_line"></div>
+
+
+        @{var session = (Soon.Models.UserSession)Session["userSession"];
+            if (session == null || Session.Count == 0)
+            {
+                <div class="user_block_hidden" id="user_block">
+                    <div class="row" style="margin-top:2%;">
+                        <div class="col-12">
+                            <div class="clearfix">
+                                <div class="float-right"><a href="#" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="user_block_show" id="user_block">
+                    <div class="row" style="margin-top:2%;">
+                        <div class="col-12">
+                            <div class="clearfix">
+                                <div class="float-right"><a href="#" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        
+
+
+        <div class="opinion_add_box">
+            <form id="add_article" name="add_article" enctype="multipart/form-data" style="display:inline-block;">
+                <input type="hidden" value="modal" id="pop_modal" name="pop_modal" />
+                <input type="submit" class="btn btn-primary opinion_add_box_btn" value="Add new article" />
+            </form>
+            @*@Html.ActionLink("Add new article", "new", "articles", null, new { @class = "btn btn-primary opinion_add_box_btn", @id = "add_article" })*@
+            @*<button class="btn btn-primary opinion_add_box_btn" id="add_article" style="display:inline-block;">Add new article</button>
+                <div class="text-left" style="display:inline-block; color:#183153; font-weight:bold;">you can new article to share thought at the click of the button, so why not try now and see what happens?</div>*@
+        </div>
+
+        <div class="container" style="margin-top:5%;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-muted" style="color:#ff006e; font-weight:bold;">Latest</div>
+                    <div class="h2" style="font-weight:bold; color:#000;">Thoughts</div>
+                    <div class="opinion_box">
+                        <a href="#" style="display:inline-block; margin:1%;cursor:pointer;"><i style="font-size: 1em; color: #ff006e;" class="fas fa-th"></i></a>
+                        <a href="#" style="display:inline-block;cursor:pointer;"><i style="font-size: 1em; color: #ff006e; margin:5%;" class="fas fa-bars"></i></a>
+                        <div class="opinion_line2"></div>
+
+
+
+                        <!--content will go here-->
+                        <div class="row">
+                            @foreach (var p in Model.Articles)
+                            {
+                                <div style="border:0; border:1px solid #d5d5d5; background-color:#fff; padding:0;margin:1%; text-overflow:ellipsis;" class="col-3 text-center">
+                                    <div class="article_container_news">
+                                        <div class="article_container_image">
+                                            @if (p.Image != null)
+                                            {
+                                                var img = Convert.ToBase64String(p.Image);
+                                                <img class="article-image" src="data:image/@p.ImimeType;base64,@img" />
+                                            }
+                                        </div>
+                                        <div class="article_container_content">
+                                            @*<div class="span-article">category</div>*@
+                                            <div style="color:#306ffd; font-weight:bold;" class="text-center">
+                                                @Html.Raw(p.ArticleTitle)
+                                            </div>
+                                            <div style="color:#306ffd; font-weight:bold;" class="text-center">
+                                                @Html.Raw("Read time:" + p.ReadTime)
+                                            </div>
+                                            <div style="text-overflow:ellipsis;" class="text-center">
+                                                @Html.display_body(p.Body)
+                                            </div>
+                                            <div class="text-left" style="display:inline-block;">
+                                                @using (Html.BeginForm("read", "articles", FormMethod.Post))
+                                                {
+                                                    @Html.Hidden("articleId", p.ArticlesId);
+                                                    <input type="submit" class="btn btn-warning opinion_add_box_btn_r" value="Read" style="font-weight:normal; padding:10%; border-radius:2px;" />
+                                                }
+
+                                            </div>
+                                            <div class="text-left" style="display:inline-block;">
+                                                @using (Html.BeginForm("delete", "articles", FormMethod.Post))
+                                                {
+                                                    @Html.Hidden("articleDelete", p.ArticlesId);
+                                                    <input type="submit" class="btn btn-warning opinion_add_box_btn_r" value="delete" style="font-weight:normal; padding:10%; border-radius:2px;"  />
+                                                }
+
+                                            </div>
+                                            <div class="text-left" style="display:inline-block;">
+                                                @using (Html.BeginForm("read", "articles", FormMethod.Post))
+                                                {
+                                                    @Html.Hidden("articleId", p.ArticlesId);
+                                                    <input type="submit" class="btn btn-warning opinion_add_box_btn_r" value="update" style="font-weight:normal; padding:10%; border-radius:2px;" />
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+
+                        <div class="text-center">
+                            @Html.PageLinks(Model.PagingInfo, x => Url.Action("all", "articles", new { page = x }))
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        @Html.ActionLink("articles page", "opinions", "soon", null, new { @class = "btn btn-primary opinion_add_box_btn" })
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="push"></div>
+    </div>
+
+
+    <div class="site-footer">
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+
+    <!--tinymce-->
+    <script src="~/Scripts/tinymce/tinymce.js"></script>
+    <script src="~/Scripts/tinymce/themes/silver/theme.js"></script>
+
+    <script src="~/Scripts/main/opinion.js"></script>
+
+</body>
+</html>
+

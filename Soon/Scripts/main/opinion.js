@@ -11,7 +11,7 @@ $(document).ready(function () {
         container: 'body',
         trigger: 'focus',
         title: 'Information',
-        content: '<div class="text-left"><a href="#" id="sigout" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Your articles</a></div><div class="text-left"><a href="https://localhost:44363/articles/signout" id="sigot" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Sign out</a></div>',
+        content: '<div class="text-left"><a href="https://localhost:44363/articles/all" id="all_user" style="text-decoration:none; cursor:pointer; font-weight:bold;" >You Articles</a></div><div class="text-left"><a href="https://localhost:44363/articles/signout" id="sigot" style="text-decoration:none; cursor:pointer; font-weight:bold;" >Sign out</a></div>',
         html: true,
         delay: { show: 0, hide: 500 }
     });   
@@ -324,5 +324,52 @@ $(document).ready(function () {
         });
 
     });
+    $(document).on("submit", "#update_article_form", function (e) {
 
+        e.preventDefault();
+
+
+        //trigger tinymce to save content to the textarea
+        tinymce.triggerSave();
+
+        //encode the textarea content so that it can be saved to the database
+        var textarea_type_update_article = encodeHTML($("#textarea_type_update_article").val());
+
+        //prepare the form fields
+        var formData = new FormData();
+        formData.append('select_article_update_category', $('#select_article_update_category').val());
+        formData.append('add_article_update_title', $('#add_article_update_title').val());
+        formData.append('select_article_update_image', $('input[type=file]')[0].files[0]);
+        formData.append('textarea_type_update_article', textarea_type_update_article);
+        formData.append('hidden_article_update_category', $("#hidden_article_update_category").val());
+        formData.append('hidden_article_update_id', $("#hidden_article_update_id").val());
+
+        //post with ajax async
+        $.ajax({
+            method: "POST",
+            url: "https://localhost:44306/radio/news/article/update",
+            dataType: "json",
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (msg) {
+
+                if (typeof msg == 'string' || msg instanceof String) {
+                    if (msg.indexOf("error") !== -1) {
+                        //$("#customer-search-update-modal").modal("hide");
+                        var target = $("#error_insert_text");
+                        target.empty().html();
+                        target.append(msg);
+                        $("#error-login-modal").modal({ keyboard: false, backdrop: 'static' });
+                    } else {
+                        console.log(msg);
+                        window.location.href = "https://localhost:44306" + msg;
+                    }
+                }
+            }
+        });
+
+
+    });
 });

@@ -1,0 +1,62 @@
+﻿@model  Soon.Models.ReadArticle
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title Read - {@Model.Articles.ArticleTitle} </title>
+
+
+    @*<link href="~/Scripts/tinymce/skins/content/default/content.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Scripts/tinymce/skins/ui/oxide/skin.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/tinymce/skins/ui/oxide/content.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Content/opinion.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+</head>
+<body>
+   
+
+    <div class="page-wrap" style="padding:5%;">
+        <div class="container">
+
+            <div class="text-center">
+                Somemthing went wrong please go back
+                <img class="img-fluid" height="150" width="150" src="~/Content/icons/005-testing.png" style="display:block; margin-left:auto; margin-right:auto;" />
+            </div>
+           
+
+            <div class="text-center">
+                @Html.ActionLink("user articles page", "all", "articles", null, new { @class = "btn btn-primary opinion_add_box_btn" })
+            </div>
+        </div>
+        <div class="push"></div>
+    </div>
+
+
+    <div class="site-footer">
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+
+    <!--tinymce-->
+    <script src="~/Scripts/tinymce/tinymce.js"></script>
+    <script src="~/Scripts/tinymce/themes/silver/theme.js"></script>
+
+    <script src="~/Scripts/main/opinion.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+</body>
+</html>
+

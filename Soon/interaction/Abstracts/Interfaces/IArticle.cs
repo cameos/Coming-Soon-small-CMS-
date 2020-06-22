@@ -11,8 +11,9 @@ namespace Soon.interaction.Abstracts.Interfaces
     {
         bool new_article(Articles article);
         bool update_article(Articles article);
-        bool delete_article();
+        bool delete_article(Guid id);
         List<Articles> get_all();
         Articles get_one(Guid id);
+        List<Articles> get_by_user_id(Guid id);
     }
 }

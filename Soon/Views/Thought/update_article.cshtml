@@ -1,0 +1,124 @@
+﻿@model  Soon.Models.ReadArticle
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title update - @Html.Raw(Model.Articles.ArticleTitle) </title>
+
+
+    @*<link href="~/Scripts/tinymce/skins/content/default/content.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Scripts/tinymce/skins/ui/oxide/skin.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/tinymce/skins/ui/oxide/content.css" rel="stylesheet" type="text/css" />
+
+
+    <link href="~/Content/opinion.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/fontawesome/css/all.css" />
+</head>
+<body>
+
+
+    <div class="page-wrap" style="padding:5%;">
+        <div class="container">
+
+            <form method="post" id="update_article_form" name="update_article_form" enctype="multipart/form-data">
+                <input type="hidden" value="@Html.Raw(Model.Articles.ArticlesId)" name="hidden_update_article" id="hidden_update_article" />
+                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; padding:1%;">
+                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                        <img src="~/Content/icons/050-chat.png" height="50" width="50" class="rounded" style="display:inline-block;" /> update Article - @Html.Raw(Model.Articles.ArticleTitle)
+                    </div>
+
+                    <!--title and minutes-->
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="form-group text-justify">
+
+                                <input type="text" class="form-control opinion_text" placeholder="add new article title or leave blank" name="-update_opinion_title" id="update_opinion_title" aria-labelledby="opinion_title_help" />
+                                <small id="opinion_title_help" class="form-text text-muted">Current title: @Html.Raw(Model.Articles.ArticleTitle)</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group text-justify">
+
+                                <input type="text" class="form-control opinion_text" placeholder="add new read mins or leave blank" name="update_opinion_minutes" id="update_opinion_minutes" aria-labelledby="opinion_minutes_help" />
+                                <small id="opinion_minutes_help" class="form-text text-muted">Current Mins: @Html.Raw(Model.Articles.ReadTime)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--add picture for the news-->
+                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                        <img src="~/Content/icons/029-video marketing.png" height="50" width="50" class="rounded" style="display:inline-block;" />  Choose Image for the news article
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-justify">
+                                <label for="opinion_image" class="col-form-label">select image</label>
+                                <input type="file" id="update_opinion_image" name="update_opinion_image" class="form-control-file change_image_article" aria-labelledby="opinion_image_help">
+                                <small id="opinion_image_help" class="form-text text-muted">Choose category to assocciate with the news and help the system categories the news</small>
+                                @if (Model.Articles.Image != null)
+                                {
+                                    var img = Convert.ToBase64String(Model.Articles.Image);
+                                    <img style="display:inline" width="75" height="75" class="article_container_read_image" src="data:image/@Model.Articles.ImimeType;base64,@img" />
+
+                                    <span style="display:inline-block">Current image</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div style="border:1px solid #d1d5da; margin-top:1%; padding:1%;">
+                                <div class="text-center potrait-image image_preview_article">
+                                    Preview image here
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--start type the news article-->
+                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                    <div style="color:#306ffd;border-bottom:1px solid #d1d5da;padding:2%; font-weight:bold;" class="text-justify">
+                        <img src="~/Content/icons/036-form.png" height="50" width="50" class="rounded" style="display:inline-block;" />  Happy updating the article
+                    </div>
+                    <div style="margin-top:2%;" class="tinymce" id="tinymce">
+                        <label for="opinion_type_article" class="col-form-label">Update below</label>
+                        <textarea id="update_opinion_type_article" name="update_opinion_type_article" class="form-control radio-login-input mceEditor" style="height:450px;"> @Html.Raw(HttpUtility.HtmlDecode(Model.Articles.Body)) </textarea>
+                    </div>
+                </div>
+                <div class="text-center" style="border:1px solid #d5d5d5; background-color:#fff; margin-top:5%; padding:1%;">
+                    <input type="submit" onclick="tinyMCE.triggerSave(true,true);" value="publish this article" class="btn btn-primary opinion_add_box_btn_r" />
+                    <input type="reset" value="Cancel everything" id="article_add_cancel" class="btn btn-warning opinion_add_box_btn" />
+                </div>
+            </form>
+
+        </div>
+        <div class="push"></div>
+    </div>
+
+
+    <div class="site-footer">
+        <p class="text-center">&copy; @DateTime.Now.Year - Bongani Qunta Production</p>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/fontawesome/js/all.js"></script>
+
+    <!--tinymce-->
+    <script src="~/Scripts/tinymce/tinymce.js"></script>
+    <script src="~/Scripts/tinymce/themes/silver/theme.js"></script>
+
+    <script src="~/Scripts/main/opinion.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+</body>
+</html>
+

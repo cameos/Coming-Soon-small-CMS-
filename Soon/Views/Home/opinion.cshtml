@@ -353,7 +353,7 @@
 
 
         @{var session = (Soon.Models.UserSession)Session["userSession"];
-            if (session == null)
+            if (session == null || Session.Count == 0)
             {
                 <div class="user_block_hidden" id="user_block">
                     <div class="row" style="margin-top:2%;">
@@ -379,17 +379,7 @@
             }
         }
 
-        <div class="user_block_hidden" id="user_block">
-            <div class="row" style="margin-top:2%;">
-                <div class="col-12">
-                    <div class="clearfix">
-                        <div class="float-right"><a href="" id="user_sign" style="text-decoration:none; cursor:pointer; font-weight:bold;" data-toggle="popover" data-trigger="focus" data-placement="bottom">Welcome: Bongani <span id="username"></span> <img src="~/Content/icons/063-heart.png" width="50" height="50" style="border-radius:50%;" /> </a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        
         <div class="opinion_add_box">
             <form id="add_article" name="add_article" enctype="multipart/form-data" style="display:inline-block;">
                 <input type="hidden" value="modal" id="pop_modal" name="pop_modal" />
